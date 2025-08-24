@@ -1,4 +1,4 @@
-#  Notes From A Beginner in AI and Robotics
+#  Notes From a Beginner in AI and Robotics
 
 [cs231n_notes](./cs231n_notes) are handwritten lecture notes of Stanford cs231n course, which is an intro to deep learning in CV and is mainly about neural networks for picture classification tasks.
 
