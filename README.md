@@ -4,6 +4,10 @@
 
 ---
 
-[NLP_intro](./NLP_intro) contains a handwritten note mainly refering to the first half of Stanford cs224n course. It covers from word2vec, RNN, LSTM, self-attention all the way to transformer, and thus serves as a good intro to NLP(natural language processing). It's relatively not so beginner-friendly as it is mainly about the underlying logic of how these models work, and requires some prior knowledge in neural networks(refer to [cs231n_notes](./cs231n_notes)).
+[NLP_intro](./NLP_intro) contains a handwritten note mainly referring to the first half of Stanford cs224n course. It covers from word2vec, RNN, LSTM, self-attention all the way to transformer, and thus serves as a good intro to NLP (natural language processing). It's relatively not so beginner-friendly as it is mainly about the underlying logic of how these models work, and requires some prior knowledge in neural networks (refer to [cs231n_notes](./cs231n_notes)).
 
-There are also code examples in the dirctory showing how a classic transformer is built and trained using PyTorch, with line-by-line comments that helps making out the code, syntax and working mechanism of PyTorch.
+There are also code examples in the directory showing how a classic transformer is built and trained using PyTorch, with line-by-line comments that helps making out the code, syntax and working mechanism of PyTorch.
+
+---
+
+[generative_foundation_models](./basic_generative_models) are handwritten tutorials on foundation models (BERT, VAE, Stable Diffusion, etc) for Generative AI. Attached are also documents offering prior knowledge in Probability and Statistics that is necessary for understanding the maths behind these models.
