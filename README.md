@@ -10,4 +10,4 @@ There are also code examples in the directory showing how a classic transformer 
 
 ---
 
-[generative_foundation_models](./generative_foundation_models) are handwritten tutorials on foundation models (BERT, VAE, Stable Diffusion, etc) for Generative AI. Attached are also documents offering prior knowledge in Probability and Statistics that is necessary for understanding the maths behind these models.
+[generative_models_intro](./generative_models_intro) are handwritten tutorials on foundation models (BERT, VAE, Stable Diffusion, etc) for Generative AI. Attached are also documents offering prior knowledge in Probability and Statistics that is necessary for understanding the maths behind these models.
