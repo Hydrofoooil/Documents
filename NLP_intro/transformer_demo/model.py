@@ -203,7 +203,7 @@ class MultiHeadAttention(nn.Module):
         # -> batch_size * sequence_len * head * d_k  转置后, 四维
         # -> batch_size * sequence_len * embedding_dim  合并后, 三维
         
-        return self.linears[-1](x)  #将合并拼接后的张量输入剩下的一个线性层, 
+        return self.linears[-1](x)  #将合并拼接后的张量输入剩下的一个线性层
 
 
 head = 8
