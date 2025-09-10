@@ -809,6 +809,15 @@ snap info <package> #查看 Snap 包的详细信息
 
 ## 其他
 
+### 显示字体缩放
+
+```bash
+gsettings get org.gnome.desktop.interface text-scaling-factor #显示当前系统字体缩放比例
+gsettings set org.gnome.desktop.interface text-scaling-factor 1.25 #设置缩放比例至1.25
+```
+
+
+
 ### `source`
 
 在当前shell环境中，从指定文件读取和执行命令，通常用于重新执行刚刚更新的文件并让其生效，也通常用命令`.`来代替
