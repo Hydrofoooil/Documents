@@ -917,13 +917,13 @@ sudo lshw -C display
 
 如果返回的Nvidia显卡相关的信息中有 `UNCLAIMED` 字样，说明系统识别到了显卡，只是但没有任何驱动程序在控制它。如果没有显示任何关于Nvidia显卡有关的信息，说明显卡物理连接有问题，没看有被系统正确识别。
 
-![未命名文档_0](/home/maoting/文档/xwechat_files/wxid_07rq5qw9it5q22_2092/msg/file/2025-09/未命名文档 (1)/未命名文档_0.jpg)
+<img src="/home/maoting/文档/xwechat_files/wxid_07rq5qw9it5q22_2092/msg/file/2025-09/未命名文档 (1)/未命名文档_0.jpg" alt="未命名文档_0" style="zoom: 33%;" />
 
 ### Step2.检查显卡驱动是否正确安装
 
 打开**软件和更新 (Software & Updates)**  $\rightarrow$  **附加驱动 (Additional Drivers)**，如果驱动正常安装会如下图显示：
 
-![image-20250920214840447](/home/maoting/snap/typora/106/.config/Typora/typora-user-images/image-20250920214840447.png)
+<img src="/home/maoting/snap/typora/106/.config/Typora/typora-user-images/image-20250920214840447.png" alt="image-20250920214840447" style="zoom: 50%;" />
 
 注意对于5070Ti，建议选择 `nvidia-driver-570-open` ，如果显示正在使用的Xorg的驱动，则勾选 `nvidia-driver-570-open` 然后点击**应用更改**。
 
@@ -933,7 +933,7 @@ sudo lshw -C display
 ubuntu-drivers devices 
 ```
 
-![image-20250920220305025](/home/maoting/snap/typora/106/.config/Typora/typora-user-images/image-20250920220305025.png)
+<img src="/home/maoting/snap/typora/106/.config/Typora/typora-user-images/image-20250920220305025.png" alt="image-20250920220305025" style="zoom: 50%;" />
 
 这个命令会扫描你的硬件并列出所有可用的驱动包，同时会在某一个包名末尾标出一个 `recommended` 表示推荐的版本，**但是实际上这个版本可能并不适用（如上图中就错误的指向了580），一定要确保使用的是 `nvidia-driver-570-open`。**
 
@@ -953,7 +953,7 @@ nvidia-smi
 
 如果正确识别显卡，会显示一个列出显卡型号、驱动版本等信息的表格：
 
-![image-20250920220913031](/home/maoting/snap/typora/106/.config/Typora/typora-user-images/image-20250920220913031.png)
+<img src="/home/maoting/snap/typora/106/.config/Typora/typora-user-images/image-20250920220913031.png" alt="image-20250920220913031" style="zoom:50%;" />
 
 如果返回 `NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver.` 或者 `No device found.`说明安装了版本不正确的驱动，导致驱动无法识别显卡。
 
@@ -989,7 +989,7 @@ xrandr
 
 可以看到正常情况下可以识别到笔记本内置屏幕 `eDP-1` 和 外接显示屏 `HDMI-0` ，如果只识别到 `eDP-1` 说明系统识别不到外接屏
 
-<img src="/home/maoting/snap/typora/106/.config/Typora/typora-user-images/image-20250920222446819.png" alt="image-20250920222446819"  />
+<img src="/home/maoting/snap/typora/106/.config/Typora/typora-user-images/image-20250920222446819.png" alt="image-20250920222446819" style="zoom:50%;" />
 
 ### Step2.然后按照前述步骤重装驱动
 
