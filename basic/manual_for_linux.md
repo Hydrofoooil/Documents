@@ -907,3 +907,147 @@ conda update --all #更新当前环境中所有可更新的包
 conda clean -a #清理未使用的包和缓存（可以释放大量磁盘空间）
 ```
 
+##  RTX 5070Ti 掉驱动问题：
+
+### Step1.检查显卡是否被系统识别
+
+```bash
+sudo lshw -C display
+```
+
+如果返回的Nvidia显卡相关的信息中有 `UNCLAIMED` 字样，说明系统识别到了显卡，只是但没有任何驱动程序在控制它。如果没有显示任何关于Nvidia显卡有关的信息，说明显卡物理连接有问题，没看有被系统正确识别。
+
+![未命名文档_0](/home/maoting/文档/xwechat_files/wxid_07rq5qw9it5q22_2092/msg/file/2025-09/未命名文档 (1)/未命名文档_0.jpg)
+
+### Step2.检查显卡驱动是否正确安装
+
+打开**软件和更新 (Software & Updates)**  $\rightarrow$  **附加驱动 (Additional Drivers)**，如果驱动正常安装会如下图显示：
+
+![image-20250920214840447](/home/maoting/snap/typora/106/.config/Typora/typora-user-images/image-20250920214840447.png)
+
+注意对于5070Ti，建议选择 `nvidia-driver-570-open` ，如果显示正在使用的Xorg的驱动，则勾选 `nvidia-driver-570-open` 然后点击**应用更改**。
+
+如果上图中Nvidia显卡的选项都是灰色的无法勾选，或者点击应用更改后报错，则切换到终端手动安装：
+
+```bash
+ubuntu-drivers devices 
+```
+
+![image-20250920220305025](/home/maoting/snap/typora/106/.config/Typora/typora-user-images/image-20250920220305025.png)
+
+这个命令会扫描你的硬件并列出所有可用的驱动包，同时会在某一个包名末尾标出一个 `recommended` 表示推荐的版本，**但是实际上这个版本可能并不适用（如上图中就错误的指向了580），一定要确保使用的是 `nvidia-driver-570-open`。**
+
+然后手动安装驱动：
+
+```bash
+sudo apt install nvidia-driver-570-open
+```
+
+这与上面所述在**软件和更新**图形化界面安装是等效的。
+
+### Step3.检查驱动是否识别到显卡：
+
+```bash
+nvidia-smi
+```
+
+如果正确识别显卡，会显示一个列出显卡型号、驱动版本等信息的表格：
+
+![image-20250920220913031](/home/maoting/snap/typora/106/.config/Typora/typora-user-images/image-20250920220913031.png)
+
+如果返回 `NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver.` 或者 `No device found.`说明安装了版本不正确的驱动，导致驱动无法识别显卡。
+
+### Step4.检查切换 NVIDIA 显卡工作模式 
+
+电脑可能运行在 “On-Demand” (按需) 模式下，即默认使用 Intel 核心显卡渲染桌面，只在运行大型程序时才调用 NVIDIA 显卡。在这种模式下，有时外接屏的激活会存在问题。
+
+```bash
+prime-select query
+```
+
+一般会返回 `on-demand` 
+
+现在切换显卡工作模式：
+
+```bash
+sudo prime-select nvidia
+```
+
+**然后重启电脑**，现在NVIDIA显卡将成为主显卡，负责所有的图形输出。这种模式下对外接屏的兼容性是最好的。现在再查询显卡工作模式，应该会返回 `nvidia` 。
+
+现在应该可以正常使用显卡。
+
+## 对于掉驱动导致的无法连接扩展屏：
+
+### Step1.检查系统是否识别到外接屏
+
+列出所有系统检测到的视频输出端口和连接状态：
+
+```bash
+xrandr
+```
+
+可以看到正常情况下可以识别到笔记本内置屏幕 `eDP-1` 和 外接显示屏 `HDMI-0` ，如果只识别到 `eDP-1` 说明系统识别不到外接屏
+
+<img src="/home/maoting/snap/typora/106/.config/Typora/typora-user-images/image-20250920222446819.png" alt="image-20250920222446819"  />
+
+### Step2.然后按照前述步骤重装驱动
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
