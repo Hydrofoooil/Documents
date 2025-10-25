@@ -240,7 +240,16 @@ xhost + #允许任何主机的任何应用程序连接到我的 X Server 并在�
 docker run -it \
     -e DISPLAY=$DISPLAY \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
+    --rm \
     <你的镜像名称>
+    
+    
+docker run -it \
+-v /home/maoting/ZJU_AerialRobot_Lab/ros_simulationfor16/ros_simulation/controller_sim/:/home/ \
+-e DISPLAY=$DISPLAY \
+-v /tmp/.X11-unix:/tmp/.X11-unix \
+--rm \
+osrf/ros:noetic-desktop-full
 ```
 
   **如果您已经有一个正在运行的容器**，您需要停止它，然后使用 `docker start` 和 `docker exec` 是不够的，必须在 `run` 的时候就添加这些参数。
@@ -263,3 +272,4 @@ ssh -X <用户名>@<远程机器的IP地址>
 
 使用这种方式登录后，您在远程终端里启动任何GUI程序（如 `rviz` 或 `gedit`），它的窗口都会自动出现在您本地的Ubuntu桌面上。
 
+​             
