@@ -22,7 +22,9 @@
 
 ### 常用Docker命令
 
-拉取镜像（**从远程镜像仓库（默认 Docker Hub）下载一个镜像到你本地的 Docker 环境中**）：
+#### 拉取镜像
+
+**从远程镜像仓库（默认 Docker Hub）下载一个镜像到你本地的 Docker 环境中**：
 
 ```bash
 docker pull <镜像名>:<标签>
@@ -32,13 +34,13 @@ docker pull <镜像名>:<标签>
 >
 > 下载后的镜像会存在 `/var/lib/docker`目录
 
-查看本地镜像：
+#### 查看本地镜像：
 
 ```bash
 docker images
 ```
 
-删除镜像：
+#### 删除镜像：
 
 ```bash
 docker rmi <镜像ID 或 镜像名称>
@@ -49,7 +51,7 @@ docker rmi <镜像ID 或 镜像名称>
 > | `docker rmi 2f1d13d03e78` | **通过镜像 ID 删除镜像**                             | 精准、不会歧义 | 精确删除指定版本 | 不容易记住，ID 会变      |
 > | `docker rmi ubuntu`       | **通过镜像名称删除镜像**（实际是 `ubuntu:latest`） | 更直观、易读   | 方便记忆         | 可能有多个标签、版本冲突 |
 
-创建并运行新容器：
+#### 创建并运行新容器：
 
 ```bash
 docker run <选项> <镜像名>
@@ -64,7 +66,7 @@ docker run <选项> <镜像名>
 > | `-v`     | 挂载卷             |
 > | `rm`     | 容器退出后自动删除 |
 
-创建并以交互式模式运行容器：
+#### 创建并以交互式模式运行容器：
 
 ```bash
 docker run -it ubuntu
@@ -83,7 +85,7 @@ docker run -it ubuntu
 >
 > 就相当于一个ubuntu虚拟机，可以在里面进行各种ubuntu的操作
 
-在创建时给容器命名：
+#### 在创建时给容器命名：
 
 ```bash
 docker run --name <容器名> <镜像名>
@@ -93,7 +95,7 @@ docker run --name <容器名> <镜像名>
 >
 > `--name`和 `-it`可以一起使用
 
-给容器重命名：
+#### 给容器重命名：
 
 ```bash
 docker rename <旧容器名或ID> <新容器名>
@@ -101,25 +103,25 @@ docker rename <旧容器名或ID> <新容器名>
 
 > **为了简便，ID可以只输前四位，下同**
 
-查看运行中的容器：
+#### 查看运行中的容器：
 
 ```bash
 docker ps
 ```
 
-查看所有容器（运行的和停止的）：
+#### 查看所有容器（运行的和停止的）：
 
 ```bash
 docker ps -a
 ```
 
-启动一个已有的容器：
+#### 启动一个已有的容器：
 
 ```bash
 docker start -i <容器名>
 ```
 
-强制启动容器：
+#### 强制启动容器：
 
 ```bash
 docker restart <容器名>
@@ -130,13 +132,13 @@ docker restart <容器名>
 > | `docker start`   | **启动一个已停止的容器**，不重启运行中的                           |
 > | `docker restart` | **无论是否在运行，都强制重启容器**（对于运行中的先 stop 再 start） |
 
-停止容器：
+#### 停止容器：
 
 ```bash
 docker stop <容器名>
 ```
 
-删除容器：
+#### 删除容器：
 
 ```bash
 docker rm 容器名
@@ -179,6 +181,14 @@ docker cp <容器名称或ID>:<容器内的源路径> <主机上的目标路径>
 
 > 如果显示mkdir 的permission denied 的话就加sudo
 
+#### 将容器保存为镜像：
+
+```bash
+docker commit my_ros my_custom_ros_image
+```
+
+
+
 ### 数据卷挂载
 
 用于在Docker容器里运行或访问主机（Host）上的文件。
@@ -218,7 +228,7 @@ findmnt  #位于容器内查看
 
 若尝试启动一个图形用户界面（GUI）应用程序例如 `RViz`，但它无法找到或连接到任何可用的“屏幕”或“显示器”，就会报错。
 
-**第1步：**在您的Ubuntu主机上（不是在容器里！）打开一个新终端，运行以下命令，授权来自本地的连接：
+**第1步：**在Ubuntu主机上（不是在容器里！）打开一个新终端，运行以下命令，授权来自本地的连接：
 
 ```bash
 xhost +local: #授权来自本地的连接
@@ -234,22 +244,15 @@ xhost + #允许任何主机的任何应用程序连接到我的 X Server 并在�
 
 - `-v /tmp/.X11-unix:/tmp/.X11-unix`：将X11的通信套接字（socket）文件挂载到容器内部，为容器和主机建立一条图形通信的“管道”。
 
- 一个完整的示例 `docker run` 命令可能如下所示：
+-  一个完整的示例 `docker run` 命令可能如下所示：
 
 ```bash
 docker run -it \
+	--net=host \ #建议加上。这样 Docker 会直接使用宿主机的网络，否则你的 ROS 节点可能无法和外部（比如你真机上的硬件或其他节点）通信。
     -e DISPLAY=$DISPLAY \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
-    --rm \
+    -v <主机上的目录>:<容器上的目录> \
     <你的镜像名称>
-    
-    
-docker run -it \
--v /home/maoting/ZJU_AerialRobot_Lab/ros_simulationfor16/ros_simulation/controller_sim/:/home/ \
--e DISPLAY=$DISPLAY \
--v /tmp/.X11-unix:/tmp/.X11-unix \
---rm \
-osrf/ros:noetic-desktop-full
 ```
 
   **如果您已经有一个正在运行的容器**，您需要停止它，然后使用 `docker start` 和 `docker exec` 是不够的，必须在 `run` 的时候就添加这些参数。
@@ -272,4 +275,23 @@ ssh -X <用户名>@<远程机器的IP地址>
 
 使用这种方式登录后，您在远程终端里启动任何GUI程序（如 `rviz` 或 `gedit`），它的窗口都会自动出现在您本地的Ubuntu桌面上。
 
-​             
+### 日常使用
+
+应该采用“创建一个容器，然后一直复用它”的模式。
+
+开启容器：
+
+```bash
+docker start my_ros
+docker exec -it my_ros bash
+```
+
+关闭容器：
+
+```bash
+exit
+docker stop my_ros
+```
+
+到一定阶段将容器保存为新的镜像作为存档
+
