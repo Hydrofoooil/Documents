@@ -33,7 +33,7 @@ where
 - $\bar{\alpha}_1, \dots, \bar{\alpha}_T$ is a set of hyperparameters and $\bar{\alpha}_1< \dots< \bar{\alpha}_T$.
 - $\epsilon_\theta$ is the noise predictor.
 
-<img src="training.png" style="zoom:40%;" />
+<img src="training.png" style="zoom: 33%;" />
 
 #### inference:
 
@@ -88,17 +88,23 @@ Why adding $\sigma_t \mathbf{z}$?
 
 <img src="stablediffusion.png" style="zoom: 67%;" />
 
+Given an image $x ∈ \Bbb{R}^{H×W×3}$ in RGB space, the encoder $\cal{E} $ encodes $x$ into a latent representation $z = \cal{E}(x)$, and the decoder $\cal{D}$ reconstructs the image from the latent, giving $\tilde{x} = \cal{D} (z) = \cal{D}(E(x))$, where $z ∈ \Bbb{R}^{h×w×c}$ .
+
+To pre-process $y$ from various modalities (such as language prompts) we introduce a domain specific encoder $τ_θ$ that projects $y$ to an intermediate representation $τ_θ(y) ∈ \Bbb{R}^{M×d_τ} $, which is then mapped to the intermediate layers of the UNet via a cross-attention layer.
+
 #### Denoising U-Net $\varepsilon_\theta$:
 
 ![](unet.png)
 
 - <b>Dense/DenseProjection:</b> i.e. Linear/LinearProjection
 - <b>paddedConv2D: </b>When the kernel scanning an image, edge pixels cannot be fully convolved due to incomplete coverage, resulting in a one-pixel reduction in the output image dimension on all sides (e.g. \( 64 \times 64 \) input $\rightarrow$ \( 62 \times 62 \) output). *Padding* involves appending a border of zeros around the original latent matrix, thus ensuring that the input spatial dimensions match the output spatial dimensions.
-- <b>channels: </b>i.e. Dimension of features of each pixel. e.g. for the input image, *channel* = 3 (R, G, B); for the latent matrix, *channel* may increase to 1280. Because for each *ResnetBlock*, the convolution operation is performed by multiple kernels, the *feature maps* produced by each kernel are stacked together, thus resulting extra dimensions added after each convolution. (i.e. $1280 = \text{(num\_kernal)}_1 \times \cdots \times\text{(num\_kernal)}_n$)
+- <b>channels: </b>i.e. Dimension of features of each pixel. e.g. for the input image, *channel* = 3 (i.e. R, G, B); for the latent matrix, *channel* may increase to 1280. Because for each *ResnetBlock*, the convolution operation is performed by multiple kernels, the *feature maps* produced by each kernel are stacked together, thus resulting extra dimensions added after each convolution. (i.e. $1280 = \text{(num\_kernal)}_1 \times \cdots \times\text{(num\_kernal)}_n$)
 
 #### Encoder:
 
 Researches showed that larger encoder size significantly improves model performance, while increasing the size of generation model does not yield a significant improvement in performance. 
 
-<img src="encoder.png" style="zoom:33%;" />
+<img src="encoder.png" style="zoom:30%;" />
+
+### Flow-based Model
 
