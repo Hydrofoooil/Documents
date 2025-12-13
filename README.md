@@ -1,13 +1,13 @@
 #  Notes From a Beginner in AI and Robotics
 
-[cs231n_notes](./cs231n_notes) are handwritten lecture notes of Stanford cs231n course, which is an intro to deep learning in CV and is mainly about neural networks for image classification tasks.
+[cs231n](./cs231n) are handwritten lecture notes of Stanford cs231n course, which is an intro to deep learning in CV and is mainly about neural networks for image classification tasks.
 
 ---
 
-[NLP_intro](./NLP_intro) contains a handwritten note mainly referring to the first half of Stanford cs224n course. It covers from word2vec, RNN, LSTM, self-attention all the way to transformer, and thus serves as a good intro to NLP (natural language processing). It's relatively not so beginner-friendly as it is mainly about the underlying logic of how these models work, and requires some prior knowledge in neural networks (refer to [cs231n_notes](./cs231n_notes)).
+[NLP](./NLP) contains a handwritten note mainly referring to the first half of Stanford cs224n course. It covers from word2vec, RNN, LSTM, self-attention all the way to transformer, and thus serves as a good intro to NLP (natural language processing). It's relatively not so beginner-friendly as it is mainly about the underlying logic of how these models work, and requires some prior knowledge in neural networks (refer to [cs231n_notes](./cs231n_notes)).
 
 There are also code examples in the directory showing how a classic transformer is built and trained using PyTorch, with line-by-line comments that helps making out the code, syntax and working mechanism of PyTorch.
 
 ---
 
-[generative_models_intro](./generative_models_intro) are handwritten tutorials on foundation models (BERT, VAE, Stable Diffusion, etc) for Generative AI. Attached are also documents offering prior knowledge in Probability and Statistics that is necessary for understanding the maths behind these models.
+[GenerationModel](./GenerationModel) are handwritten tutorials on foundation models (BERT, VAE, Stable Diffusion, etc) for Generative AI. Attached are also documents offering prior knowledge in Probability and Statistics that is necessary for understanding the maths behind these models.
