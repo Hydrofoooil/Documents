@@ -106,5 +106,11 @@ Researches showed that larger encoder size significantly improves model performa
 
 <img src="encoder.png" style="zoom:30%;" />
 
-### Flow-based Model
+### Flow-based & Diffusion
 
+| **特性**     | **Flow-based Models (Normalizing Flows)**                    | **Diffusion Models (DDPM 等)**                               |
+| ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **核心机制** | **确定性映射**。通过一系列可逆的数学变换（如雅可比行列式），把简单的分布（如高斯分布）“拉伸/扭曲”成复杂的数据分布。 | **随机过程**。先逐步加噪声把数据变成随机噪声（破坏），再学习逆过程把噪声还原为数据（重构）。 |
+| **可逆性**   | **严格可逆**。$x \leftrightarrow z$ 是双射，一一对应。       | **不可逆**（在SDE形式下）。你无法确定某个噪声是由哪张具体图片变成的。 |
+| **目标函数** | **最大似然估计 (MLE)**。可以直接计算数据的精确概率密度 $p(x)$。 | **变分下界 (ELBO)**。通常无法直接计算 $p(x)$，只能优化其下界。 |
+| **代表模型** | RealNVP, Glow, NICE                                          | DDPM, Stable Diffusion (LDM)                                 |
