@@ -10,7 +10,7 @@
 
 ---
 
-[GenerationModel](./GenerationModel) 关于生成式AI的foundation models的手写笔记 (BERT, VAE, Stable Diffusion, etc) ，同时附有必需的概率论补充知识。
+[GenerationModel](./GenerationModel) 关于生成式AI的foundation models的手写笔记 (BERT, VAE, diffusion policy, flow-based, etc) ，同时附有必需的概率论补充知识。
 
 ---
 
