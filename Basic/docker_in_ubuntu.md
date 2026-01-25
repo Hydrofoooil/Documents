@@ -10,13 +10,13 @@
 
 ### 基本概念
 
-| 名称                        | 解释                           |
-| --------------------------- | ------------------------------ |
-| **Image（镜像）**     | 容器的模板（类似 ISO）         |
-| **Container（容器）** | 镜像运行出来的实例             |
-| **Dockerfile**        | 用来构建镜像的脚本             |
-| **Volume（卷）**      | 持久化数据（容器删了数据还在） |
-| **Docker Hub**        | 官方镜像仓库，类似 GitHub      |
+| 名称                | 解释               |
+| ----------------- | ---------------- |
+| **Image（镜像）**     | 容器的模板（类似 ISO）    |
+| **Container（容器）** | 镜像运行出来的实例        |
+| **Dockerfile**    | 用来构建镜像的脚本        |
+| **Volume（卷）**     | 持久化数据（容器删了数据还在）  |
+| **Docker Hub**    | 官方镜像仓库，类似 GitHub |
 
 一个镜像可以构建多个容器，镜像是静态的模板，容器是动态的实例，容器可以被创建、运行、停止和删除。
 
@@ -294,4 +294,189 @@ docker stop my_ros
 ```
 
 到一定阶段将容器保存为新的镜像作为存档
+
+```bash
+docker system df -v
+```
+
+查看镜像、容器的状态、占用以及引用关系，最全面
+
+
+
+## docker compose
+
+ **Docker Compose（v2：`docker compose`）常用命令速查**。默认你在有 `compose.yml` 的目录里；如果用指定文件，就在命令里加 `-f path/to/compose.yml`。
+
+------
+
+### 启动与停止
+
+#### 启动（前台）
+
+```bash
+docker compose up
+```
+
+#### 启动（后台）
+
+```bash
+docker compose up -d
+```
+
+#### 启动并强制构建镜像
+
+```bash
+docker compose up -d --build
+```
+
+#### 仅启动某个服务
+
+```bash
+docker compose up -d openpi_server
+```
+
+#### 停止（保留容器）
+
+```bash
+docker compose stop
+```
+
+#### 停止并删除容器/网络（不删你宿主机目录；会删 named volumes 需谨慎）
+
+```bash
+docker compose down
+```
+
+#### down 并删除 volumes（⚠️ 会删 named volume，可能导致数据丢失）
+
+```bash
+docker compose down -v
+```
+
+------
+
+### 日志与“重新 attach”
+
+#### 跟随所有服务日志（最常用）
+
+```bash
+docker compose logs -f
+docker compose -f examples/libero/compose.yml logs -f openpi_server
+```
+
+#### 只看某个服务日志
+
+```bash
+docker compose logs -f openpi_server
+```
+
+#### 只看最后 N 行
+
+```bash
+docker compose logs --tail 200 openpi_server
+```
+
+------
+
+### 查看状态与信息
+
+#### 看服务/容器状态
+
+```bash
+docker compose ps
+```
+
+#### 展开后的最终配置（变量替换后，排查 yml 很好用）
+
+```bash
+docker compose config
+```
+
+------
+
+### 进入容器与执行命令
+
+#### 在**运行中的**服务里执行命令（推荐）
+
+```bash
+docker compose exec openpi_server bash
+```
+
+#### 直接执行一条命令
+
+```bash
+docker compose exec openpi_server nvidia-smi
+```
+
+#### 启一个“临时容器”跑命令，命令结束就删（不影响现有容器）
+
+```bash
+docker compose -f examples/libero/compose.yml run openpi_server bash -lc 'uv run scripts/serve_policy.py --help | sed -n "1,200p"'
+```
+
+------
+
+### 镜像构建与拉取
+
+#### 单独构建镜像
+
+```bash
+docker compose build
+```
+
+#### 只构建某个服务
+
+```bash
+docker compose build openpi_server
+```
+
+#### 不用缓存构建（很慢，但排查依赖问题有用）
+
+```bash
+docker compose build --no-cache
+```
+
+#### 拉取镜像（对 image: 指定的镜像有效）
+
+```bash
+docker compose pull
+```
+
+------
+
+### 重启与更新
+
+#### 重启服务（不重建容器）
+
+```bash
+docker compose restart openpi_server
+```
+
+#### 重新创建容器（配置变了常用）
+
+```bash
+docker compose up -d --force-recreate openpi_server
+```
+
+#### 重新创建并重新 build
+
+```bash
+docker compose up -d --build --force-recreate openpi_server
+```
+
+------
+
+### 清理（谨慎）
+
+#### 删除“已停止”的容器、无用网络等（全局）
+
+```bash
+docker system prune
+```
+
+#### 连镜像也删（⚠️更激进）
+
+```bash
+docker system prune -a
+```
 

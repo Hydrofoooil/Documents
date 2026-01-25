@@ -522,6 +522,16 @@ less <file>
 
 ## 磁盘与文件系统
 
+### `du`
+
+```bash
+du -sh /path/to/dir
+```
+
+- `-s`：只显示汇总（总计）
+
+- `-h`：人类可读（KB/MB/GB
+
 ### `df`
 
 disk free，显示磁盘空间占用情况
@@ -976,6 +986,8 @@ prefix键：`Ctrl+b`
   ```bash
   set -g mouse on
   ```
+
+- **要复制时，按住`shift`然后用鼠标选中文本**
 
 - 删除会话
 

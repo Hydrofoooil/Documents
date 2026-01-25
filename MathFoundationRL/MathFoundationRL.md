@@ -52,14 +52,15 @@ Markov property: memoryless property
 > The value of one state relies on the values of other states ——*Bootstrapping*
 
 $$
-{\bf{trajectory: \ }} S_t \xrightarrow{A_t} R_{t+1}, S_{t+1} \xrightarrow{A_{t+1}} R_{t+2}, S_{t+2} \xrightarrow{A_{t+2}} R_{t+3}, S_{t+3}, \xrightarrow{A_{t+3}} \cdots 
-\\
+\displaylines{
+{\bf{trajectory : \ }} S_t \xrightarrow{A_t} R_{t+1}, S_{t+1} \xrightarrow{A_{t+1}} R_{t+2}, S_{t+2} \xrightarrow{A_{t+2}} R_{t+3}, S_{t+3}, \xrightarrow{A_{t+3}} \cdots \\
 \begin{align}
 {\bf{discounted \ return: \ }}G_t &= R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \cdots  = R_{t+1} + \gamma G_{t+1} \\
 {\bf{state \ value: \ }}v_{\pi}(s) &= \Bbb{E}[G_t | S_t=s] \\
 &= \Bbb{E}[R_{t+1} + \gamma G_{t+1} | S_t=s] \\
 &= \Bbb{E}[R_{t+1} | S_t=s] + \gamma\Bbb{E}[G_{t+1} | S_t=s]
 \end{align}
+}
 $$
 
 First term of RHS (i.e. expectation of *immediate rewards*):
@@ -99,7 +100,7 @@ where
 
 - $$v _ { \pi } = \left[ v _ { \pi } \left( s _ { 1 } \right) , \ldots , v _ { \pi } \left( s _ { n } \right) \right] ^ { T } \in \mathbb { R } ^ { n }$$ 
 - $$r _ { \pi } = \left[ r _ { \pi } \left( s _ { 1 } \right) , \ldots , r _ { \pi } \left( s _ { n } \right) \right] ^ { T } \in \mathbb { R } ^ { n }$$ 
-- $P _ { \pi } \in \mathbb { R } ^ { n \times n } $, where $\left[ P _ { \pi } \right] _ { i j } = p _ { \pi } \left( s _ { j } \mid s _ { i } \right) $ is the *state transition matrix*
+- $P _ { \pi } \in \mathbb { R } ^ { n \times n }$, where $\left[ P _ { \pi } \right] _ { i j } = p _ { \pi } \left( s _ { j } \mid s _ { i } \right)$ is the *state transition matrix*
 
 example: 
 $$
@@ -297,7 +298,7 @@ $$
 
 ​			$q_{k}(s,a) = \sum _{r}p(r | s,a)⁢⁢r + \gamma \sum _{s^{′}}p(s^{′} | s,a)v_{k}(s^{′})$
 
-​		$a_k^*(s) = \arg \max \limits_{a} q_k(s,a)$
+​  	 	$a_k^*(s) = \arg \max \limits_{a} q_k(s,a)$
 
 ​		$\pi_{k+1}(a|s) = 1$ if $a=a_k^*$, and $\pi_{k+1}(a|s) = 0$ otherwise
 
@@ -564,7 +565,7 @@ $$
 
 Problem statement:
 
-- Given policy $\pi$, the aim is to estimate the state values $\{v_\pi (s)\}_{s\in S}$ <b>under $\pi$</b>.
+- Given policy $\pi$, the aim is to estimate the state values $\{v_\pi (s)\}_{s\in S}$ <b>under $\pi$ </b>.
 
 <b>The TD learning algorithm is</b>
 $$
@@ -575,8 +576,8 @@ v _ { t + 1 } ( s ) &= v _ { t } ( s ) , \quad \forall s \neq s _ { t } , \tag{2
 $$
 where $t = 0,1,2,...$
 
-- Here, $v_t (s_t ) $ is the estimated state value of $v_\pi (s_t )$; $\alpha_t (s_t )$ is the learning rate of $s_t$ at time $t$.
-- At time $t$, only the value of the visited state $s_t$ is updated whereas the values of the unvisited states $s \neq  s_t $ remain unchanged.
+- Here, $v_t (s_t )$ is the estimated state value of $v_\pi (s_t )$; $\alpha_t (s_t )$ is the learning rate of $s_t$ at time $t$.
+- At time $t$, only the value of the visited state $s_t$ is updated whereas the values of the unvisited states $s \neq  s_t$ remain unchanged.
 - The update in $(2)$ will be omitted when the context is clear.
 
 Observation: The new estimate $v_{t + 1}(s_{t})$ is a combination of the current estimate $v_{t}(s_{t})$ and the TD error.

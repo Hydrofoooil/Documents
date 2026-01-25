@@ -4,7 +4,8 @@
 
 A generator is a network which defines a probability distribution $P_G$.
 
-<img src="截图 2025-12-17 23-15-01.png" style="zoom:50%;" />
+<img src="截图 2025-12-17 23-15-01.png" style="zoom:70%;" />
+
 $$
 G^* = \arg \max \limits_{G} \sum_{i=1}^{m} logP_G(x^i) \approx \arg \min \limits_{G} KL(P_{data}||P_G)
 $$
@@ -33,7 +34,8 @@ $$
 
 If we train $G^{-1}$ to map $P_{data}$ into normal distribution, then $G$ is able to inversely map the normal distribution into $P_{data}$.
 
-<img src="截图 2025-12-17 23-57-06.png" style="zoom: 50%;" />
+<img src="截图 2025-12-17 23-57-06.png" style="zoom: 70%;" />
+
 $$
 \begin{align*}
 p_1(x^i) &= \pi(z^i) \left( \left| \det(J_{G_1^{-1}}) \right| \right) \\
@@ -43,7 +45,7 @@ p_K(x^i) &= \pi(z^i) \left( \left| \det(J_{G_1^{-1}}) \right| \right) \cdots \le
 \log p_K(x^i) &= \log \pi(z^i) + \sum_{h=1}^{K} \log \left| \det(J_{G_h^{-1}}) \right|
 \end{align*}
 $$
-<img src="截图 2025-12-18 00-10-57.png" style="zoom:45%;" />
+<img src="截图 2025-12-18 00-10-57.png" style="zoom:70%;" />
 
 Intuitively, to train $G^{-1}$ to map $P_{data}$ into normal distribution, our goal seems to be making $z^i$ be as close to zero vector (i.e. the mean of normal distribution) as possible. However, if $z^i$ is always zero, $J_{G_h^{-1}}$ would be zero matrix and thus $\det{J_{G_h^{-1}}}$ would be `-inf`.
 
@@ -55,15 +57,15 @@ Therefore we need to make some kind of trade-off in between.
 
   $\color{lime}{\text{ (NICE, Real NVP)}}$
 
-<img src="截图 2025-12-18 00-30-31.png" alt="截图 2025-12-18 00-30-31" style="zoom:45%;" />
+<img src="截图 2025-12-18 00-30-31.png" alt="截图 2025-12-18 00-30-31" style="zoom:70%;" />
 
 where F and H is learned during training and can be any function that don't necessarily have to be irreversible.
 
 As shown in the picture, we can compute $z_i$ given $x_i$, so we can compute $G^{-1}$.
 
-Then how to compute $\operatorname { d e t } \left( J _ {G } \right) $ ?
+Then how to compute $\operatorname { d e t } \left( J _ {G } \right)$ ?
 
-<img src="截图 2025-12-18 00-44-05.png" alt="截图 2025-12-18 00-44-05" style="zoom:50%;" />
+<img src="截图 2025-12-18 00-44-05.png" alt="截图 2025-12-18 00-44-05" style="zoom:70%;" />
 
 In fact, $J _ {G}$ is an *lower triangular matrix*! 
 
@@ -85,15 +87,15 @@ $$
 >
 > - Efficient Computation:
 >
->   It forces the Jacobian matrix to be *lower triangular matrix*. This allows $\operatorname { d e t } \left( J _ {G } \right) $ to be calculated with $O(N)$ complexity rather than a computationally expensive matrix operation $O(N^3)$ .
+>   It forces the Jacobian matrix to be *lower triangular matrix*. This allows $\operatorname { d e t } \left( J _ {G } \right)$ to be calculated with $O(N)$ complexity rather than a computationally expensive matrix operation $O(N^3)$ .
 
 #### Coupling Layer - Stacking
 
-<img src="截图 2025-12-18 00-50-42.png" alt="截图 2025-12-18 00-50-42" style="zoom: 45%;" />
+<img src="截图 2025-12-18 00-50-42.png" alt="截图 2025-12-18 00-50-42" style="zoom: 70%;" />
 
 **Image generation case:**
 
-<img src="截图 2025-12-18 00-55-57.png" alt="截图 2025-12-18 00-55-57" style="zoom:33%;" />
+<img src="截图 2025-12-18 00-55-57.png" alt="截图 2025-12-18 00-55-57" style="zoom:70%;" />
 
 - <b>Spatial checkerboard pattern masking:</b> Selecting different groups of pixels to *copy*(shallow green) or *transform*(deep green) according to `x_index` and `y_index` in each layer.
 
@@ -103,7 +105,7 @@ $$
 
   $\color{lime}{\text{(Glow, 2018)}}$
 
-  <img src="截图 2025-12-18 01-27-42.png" alt="截图 2025-12-18 01-27-42" style="zoom:45%;" />
+  <img src="截图 2025-12-18 01-27-42.png" alt="截图 2025-12-18 01-27-42" style="zoom: 40%;" />
 
 Note that $W$ is a learned matrix so the possibility of it being invertible (i.e. $\det{W}$ is exactly $0$) is near zero.
 $$
@@ -111,7 +113,7 @@ x = f(z) = Wz
 $$
 In fact, $J_f = W$! Therefore, 
 
-<img src="截图 2025-12-18 01-28-51.png" alt="截图 2025-12-18 01-28-51" style="zoom:40%;" />
+<img src="截图 2025-12-18 01-28-51.png" alt="截图 2025-12-18 01-28-51" style="zoom:70%;" />
 
 where the image shape is $d \times d$.
 
@@ -123,18 +125,19 @@ where the image shape is $d \times d$.
 
 ### Applications
 
-<img src="截图 2025-12-18 01-42-12.png" alt="截图 2025-12-18 01-42-12" style="zoom: 33%;" />
+<img src="截图 2025-12-18 01-42-12.png" alt="截图 2025-12-18 01-42-12" style="zoom: 70%;" />
 
-<img src="截图 2025-12-18 01-41-58.png" alt="截图 2025-12-18 01-41-58" style="zoom:33%;" />
+<img src="截图 2025-12-18 01-41-58.png" alt="截图 2025-12-18 01-41-58" style="zoom:70%;" />
 
 ## Continuous Normalizing Flow
 
 ### Flow-matching
 
-Trajectory $X=\{x_0,\cdots,x_1\}$：where $t\in[0,1]$ and $x_t$ is the position at timestep $t$.
+Trajectory $X=\{x_0,\cdots,x_1\}$：$x_t$ is the position at timestep $t$ where $t\in[0,1]$.
 
 Vector Field $u_t$: Defines the movement at timestep $t$ by giving the current speed.
 $$
+\displaylines{
 u_t(x_t)=v=\frac{dx_t}{dt} \\
 \left.
 \begin{array}{c}
@@ -145,12 +148,15 @@ u_t(x_t)=v=\frac{dx_t}{dt} \\
 \right\}
 \quad
 X: \{x_0, \dots, x_1\}
+}
 $$
 Flow $\psi$: A set of trajectories.
 $$
+\displaylines{
 x_t = \psi_t(x_0) \\
 \frac{dx_t}{dt} = u_t(x_t) \\
 \Rightarrow \frac{d\psi_t(x_0)}{dt} = u_t(\psi_t(x_0))
+}
 $$
 
 #### Inference
@@ -162,9 +168,7 @@ $$
 ---
 
 Set t = 0 and $h=\frac{1}{n}$
-
 Sample $x_0$ from $p_{init}$
-
 <b>for</b> i = 1, ... , n-1 <b>do</b>
 
 ​	$x_{t+h}=x_t+hu_t^\theta(x_t)$
@@ -177,33 +181,37 @@ Sample $x_0$ from $p_{init}$
 
 #### Training
 
-Define *Mean Square Error* loss as: $L ( \theta ) = \left\| u _ { t } ^ { \theta } \left( x _ { t } \right) - u _ { t } ^ { \text{target} } \left( x _ { t } \right) \right\| ^ { 2 } $ where the target flow $ u _ { t } ^ { \text{target} }$ is defined by ourselves.
+Define *Mean Square Error* loss as: $L ( \theta ) = \left\| u _ { t } ^ { \theta } \left( x _ { t } \right) - u _ { t } ^ { \text{target} } \left( x _ { t } \right) \right\| ^ { 2 }$ where the target flow $u _ { t } ^ { \text{target} }$ is defined by ourselves.
 
 First define a <b>conditional</b> probability trajectory $p_t(\cdot | z )$ that satisfies follow conditions:
 $$
+\displaylines{
 p_0(\cdot | z ) = N(0,1) \\
 p_1(\cdot | z ) = N(z,0)
+}
 $$
 where $z$ is sampled from training data, and for each $z$, $x_0$ is randomly sampled from normal distribution. 
 
-<img src="截图 2025-12-20 02-12-42.png" alt="截图 2025-12-20 02-12-42" style="zoom:50%;" />
+<img src="截图 2025-12-20 02-12-42.png" alt="截图 2025-12-20 02-12-42" style="zoom:70%;" />
 
-In most cases the trajectory is defined as $x_t = (1-t)x_0 + t z$ because the straight line is considered as the optimal transport.
+In most cases the trajectory is defined as $x_t = (1-t)x_0 + t z$ because the "straight path" is considered as the optimal transport.
 
 Then we can build a target flow (conditional, given $z$) $\psi _ { t } ^ { \text{target} } \left( x _ { 0 } | z \right)$ that analogously satisfies follow conditions: 
 $$
+\displaylines{
 \psi _ { 0 } ^ { \text{target} } \left( x _ { 0 } | z \right) = x_0 \\
 \psi _ { 1 } ^ { \text{target} } \left( x _ { 0 } | z \right) = z
+}
 $$
 Next, compute the vector field $u_t(x_t|z)$ which is covered by $\psi _ { t } ^ { \text{target} }$: 
 $$
 \frac{d\psi_t(x_0|z)}{dt} = u_t(\psi_t(x_0|z)|z)
 $$
-Finally, we can use MSE for *Conditional Flow Matching*: $L _{CFM}( \theta ) = \left\| u _ { t } ^ { \theta } \left( x _ { t } \right) - u _ { t } ^ { \text{target} } \left( x _ { t } |z\right) \right\| ^ { 2 } $ as loss function to train our flow-matching model.
+Finally, we can use MSE for *Conditional Flow Matching*: $L _{CFM}( \theta ) = \left\| u _ { t } ^ { \theta } \left( x _ { t } \right) - u _ { t } ^ { \text{target} } \left( x _ { t } |z\right) \right\| ^ { 2 }$ as loss function to train our flow-matching model.
 
 The intuition is that at each iteration, the neural network learns a part of vector field which is corresponding to the data from current batch. As the batches cover the entire training set, the vector field learned by the network will ultimately covers the entire training data. 
 
-<img src="截图 2025-12-20 02-49-36.png" alt="截图 2025-12-20 02-49-36" style="zoom:50%;" />
+<img src="截图 2025-12-20 02-49-36.png" alt="截图 2025-12-20 02-49-36" style="zoom:70%;" />
 
 If we run for enough epoch, the vector field will <b>generalize</b> from $u_t(x_t|\text{training data})$ to $u_t(x_t)$.
 
