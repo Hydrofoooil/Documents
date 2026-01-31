@@ -234,3 +234,50 @@ If we run for enough epoch, the vector field will <b>generalize</b> from $u_t(x_
 ​	Compute MSE loss between the labeled speed and the prediction, then update $\theta$
 
 > Note that the advantage of Flow-matching over DDPM is that Flow-matching requires significantly fewer sampling steps than DDPM. This is because it abandons the tortuous and highly stochastic diffusion-denoising paths characteristic of DDPM, and instead learns a smooth, deterministic Optimal Transport path from noise to data. This straight 'highway' allows the sampling process to advance with much larger step sizes, enabling it to reach the destination in fewer steps and greatly improving generation efficiency.
+
+code：
+
+```python
+def flow_matching_inference(action_expert, observation_embedding, horizon=50, steps=10):
+    """
+    Args:
+        action_expert: 训练好的动作专家模型 (PyTorch Module)
+        observation_embedding: VLM Backbone 提取的上下文特征 (Batch, Seq_Len, Dim)
+        horizon: 动作预测长度 (H=50)
+        steps: 积分步数 (N=10)
+    """
+    batch_size = observation_embedding.shape[0]
+    action_dim = 14 # 假设动作维度
+
+    # 1. 初始化：从标准正态分布采样纯噪声 x_0
+    # 注意：这里的 Shape 包含了 Horizon 维度，这就是"并行"的关键
+    # 我们一次性初始化了未来 50 步的所有动作
+    x_t = torch.randn(batch_size, horizon, action_dim, device=device) 
+    
+    # 2. 定义时间步长 dt
+    dt = 1.0 / steps
+    
+    # 3. ODE 积分循环 (从 t=0 到 t=1)
+    # 这个循环是串行的，但循环内部对 Horizon 的处理是并行的
+    for i in range(steps):
+        # 当前时间 t (归一化到 [0, 1])
+        t_value = i / steps
+        
+        # 构造时间张量 (Batch,) 或 (Batch, 1)
+        t_tensor = torch.full((batch_size,), t_value, device=device)
+        
+        # 4. 模型前向传播：预测向量场 (Velocity)
+        # 输入：当前带噪轨迹 x_t, 观测条件 cond, 当前时间 t
+        # 输出：向量场 v (Batch, Horizon, Action_Dim)
+        # 这里模型同时“看到”了这 50 步的所有状态，并计算出它们该往哪里“流”
+        velocity = action_expert(x_t, observation_embedding, t_tensor)
+        
+        # 5. 更新状态 (Euler Step)
+        # x_{t+1} = x_t + v(x_t, t) * dt
+        x_t = x_t + velocity * dt
+        
+    # 积分结束，x_t 即为生成的去噪后的动作序列 a_{t:t+H}
+    return x_t
+```
+
+The `action_expert` in the code is the training object.

@@ -896,6 +896,8 @@ ln -s <sourcefile> <softfile> #为源文件创建软链接
 conda env list #查看现有环境列表
 
 conda create -n <env_name> python=x.x #创建新环境
+conda create -p /mnt/pfs/scalelab2/maoting/conda_envs/mmact python=3.11  #指定目录创建环境
+
 conda create -n <new_env> --clone <source_env> #克隆一个已存在的环境
 conda remove -n <env_name> --all #删除一个指定名称的环境及其所有包
 
@@ -904,6 +906,12 @@ conda deactivate #关闭（退出）当前所在的环境，返回 base 环境
 
 conda env export > environment.yml #导出当前环境的配置到 YAML 文件
 conda env create -f environment.yml #从 YAML 文件创建新环境
+
+conda config --show envs_dirs  #查看环境的保存目录，conda会按顺序读取列表里的第一个目录来创建环境
+conda config --add envs_dirs /mnt/pfs/scalelab2/maoting/conda_envs  #创建新环境目录
+
+export CONDA_ENVS_PATH=/mnt/pfs/scalelab2/maoting/conda_envs  #用环境变量覆盖，之后在同一会话里 `conda create -n xxx` 也会优先用它，如果想永久生效就写到 `~/.bashrc`/`~/.zshrc`
+
 ```
 
 ### 包管理

@@ -65,17 +65,20 @@ Encoder 负责“理解”句子。
 
 这是一个**上三角矩阵**（Upper Triangular Mask），里面的值为 $-\infty$（负无穷）。
 
-| **位置**           | **可以看到 T1** | **可以看到 T2** | **可以看到 T3** | **可以看到 T4** |
-| ------------------ | --------------- | --------------- | --------------- | --------------- |
-| **预测 T1 (我)**   | ✅               | 🚫Mask           | 🚫Mask           | 🚫Mask           |
-| **预测 T2 (爱)**   | ✅               | ✅               | 🚫Mask           | 🚫Mask           |
-| **预测 T3 (机器)** | ✅               | ✅               | ✅               | 🚫Mask           |
-| **预测 T4 (EOS)**  | ✅               | ✅               | ✅               | ✅               |
+| **位置**          | **可以看到 T1** | **可以看到 T2** | **可以看到 T3** | **可以看到 T4** |     |
+| --------------- | ----------- | ----------- | ----------- | ----------- | --- |
+| **预测 T1 (我)**   | ✅           | 🚫Mask      | 🚫Mask      | 🚫Mask      |     |
+| **预测 T2 (爱)**   | ✅           | ✅           | 🚫Mask      | 🚫Mask      |     |
+| **预测 T3 (机器)**  | ✅           | ✅           | ✅           | 🚫Mask      |     |
+| **预测 T4 (EOS)** | ✅           | ✅           | ✅           | ✅           |     |
 
-在 Softmax 之前加上这个 Mask：
+**在 Softmax 之前加上这个 Mask：**
 
-- 当模型在位置 1 计算 Attention 时，位置 2, 3, 4 的分数会被加上 $-\infty$，Softmax 之后概率变为 0。
+- 当模型在位置 1 计算 Attention 时，**位置 2, 3, 4 的分数会被加上 $-\infty$，此为计算attention bias 矩阵**
+- 由于
+$$Attention(Q, K, V) = \text{Softmax}\left(\frac{QK^T}{\sqrt{d_k}} + \mathbf{Bias}\right)V$$Softmax 之后概率变为 0。
 - **物理意义：** 虽然整个句子都在矩阵里，但我强行把这一行后面的数据“抹黑”，让模型看不见未来。
+- 这样在乘上V矩阵以后，时序上较先的token对应的行
 
 ### 4. 总结：并行训练流程图
 
@@ -261,7 +264,7 @@ target_label = full_sentence[1:]
 
 ------
 
-## 知乎
+# 知乎
 
 **Transformer为何使用[多头注意力机制](https://zhida.zhihu.com/search?content_id=198356500&content_type=Article&match_order=1&q=多头注意力机制&zhida_source=entity)？**（为什么不使用一个头）
 
