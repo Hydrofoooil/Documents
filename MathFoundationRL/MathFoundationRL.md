@@ -1,6 +1,6 @@
 # Math Foundation RL
 
-### Concepts Memo
+## <span style="color:#e5b567;">Basic Concepts</span>
 
 Discount Rate $\gamma$ :
 
@@ -45,9 +45,9 @@ Markov property: memoryless property
 
 
 
-### Bellman Equation
+## <span style="color:#e5b567;">Bellman Equation</span>
 
-#### State Value
+### State Value
 
 > The value of one state relies on the values of other states ——*Bootstrapping*
 
@@ -80,7 +80,7 @@ $$
 &=\sum_{a}\pi(a|s)\sum_{s'}p(s'|s,a)v_{\pi}(s') \\
 \end{align}
 $$
-#### Bellman Equation
+### Bellman Equation
 
 Therefore the $\bf{Bellman \ Equation}$ can conclude from (1) and (2):
 $$
@@ -98,9 +98,9 @@ $$
 
 where
 
-- $$v _ { \pi } = \left[ v _ { \pi } \left( s _ { 1 } \right) , \ldots , v _ { \pi } \left( s _ { n } \right) \right] ^ { T } \in \mathbb { R } ^ { n }$$ 
-- $$r _ { \pi } = \left[ r _ { \pi } \left( s _ { 1 } \right) , \ldots , r _ { \pi } \left( s _ { n } \right) \right] ^ { T } \in \mathbb { R } ^ { n }$$ 
-- $P _ { \pi } \in \mathbb { R } ^ { n \times n }$, where $\left[ P _ { \pi } \right] _ { i j } = p _ { \pi } \left( s _ { j } \mid s _ { i } \right)$ is the *state transition matrix*
+$$v _ { \pi } = \left[ v _ { \pi } \left( s _ { 1 } \right) , \ldots , v _ { \pi } \left( s _ { n } \right) \right] ^ { T } \in \mathbb { R } ^ { n }$$ 
+$$r _ { \pi } = \left[ r _ { \pi } \left( s _ { 1 } \right) , \ldots , r _ { \pi } \left( s _ { n } \right) \right] ^ { T } \in \mathbb { R } ^ { n }$$
+    $P _ { \pi } \in \mathbb { R } ^ { n \times n }$, where $\left[ P _ { \pi } \right] _ { i j } = p _ { \pi } \left( s _ { j } \mid s _ { i } \right)$ is the *state transition matrix*
 
 example: 
 $$
@@ -147,7 +147,7 @@ v _ { k+1 } = r _ { \pi } + \gamma P _ { \pi } v _ { k } \\
 v_k \rightarrow v_{\pi},\quad k \rightarrow \infty
 $$
 
-#### Action Value
+### Action Value
 
 $$
 q _ { \pi } ( s , a ) = \mathbb { E } \left[ G _ { t } | S _ { t } = s , A _ { t } = a \right]
@@ -175,9 +175,9 @@ $$
 
 
 
-### BOE: Bellman Optimality Equation
+## <span style="color:#e5b567;">BOE: Bellman Optimality Equation</span>
 
-#### Intro
+### Intro
 
 Evaluating whether a policy is good: if
 $$
@@ -211,7 +211,7 @@ $\bf{Bellman\ Optimality \ Equation}$ (matrix-vector form):
 $$
 v =\max _ { \pi }( r _ { \pi } + \gamma P _ { \pi } v)
 $$
-#### How to Solve
+### How to Solve
 
 - Maximize the RHS expression elementwisely：
   $$
@@ -246,7 +246,7 @@ $$
   $$
   Therefore, $π ^∗$ is a policy and $v ^∗ = v_{π^∗}$ is the corresponding state value.
 
-- It can be proved in math that for the *fixed point* $v^*$,
+- It can be proved mathematically that for the *fixed point* $v^*$,
   $$
   v^* \geqslant v_\pi, \quad \forall \pi
   $$
@@ -258,7 +258,7 @@ $$
 
 > The optimal policies are invariant to the linear transformation of the reward signals.
 
-### Truncated Policy Iteration Algorithm
+## <span style="color:#e5b567;">Truncated Policy Iteration Algorithm</span>
 
 *Pseudocode:*
 
@@ -270,39 +270,39 @@ $$
 
 <b>While</b> $v_k$ has not converged, <b>for</b> the $k$th iteration $(k = 0, 1, 2, . . . )$, <b>do</b>
 
-​	*Policy evaluation:*
+​&emsp;&emsp;*Policy evaluation:*
 
-​	<b>Initialization:</b> select the initial guess as $v_k^{(0)}=v_{k-1}$. The maximum iteration is set to be $j_{truncate}$.
+&emsp;&emsp;<b>Initialization:</b> select the initial guess as $v_k^{(0)}=v_{k-1}$. The maximum iteration is set to be $j_{truncate}$.
 
-​	<b>While</b> $j < j_{truncate}$, <b>do</b>
+​&emsp;&emsp;<b>While</b> $j < j_{truncate}$, <b>do</b>
 
-​		<b>For</b> every state $s \in \cal{S}$, <b>do</b>
+&emsp;&emsp;&emsp;&emsp;<b>For</b> every state $s \in \cal{S}$, <b>do</b>
 
-​			$v_{k}^{(j + 1)}(s) = \sum _{a}\pi _{k}(a | s)\left[\sum _{r}p(r | s,a)⁢⁢r + \gamma \sum _{s^{′}}p(s^{′} | s,a)v_{k}^{(j)}(s^{′})\right]$
+​&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$v_{k}^{(j + 1)}(s) = \sum _{a}\pi _{k}(a | s)\left[\sum _{r}p(r | s,a)⁢⁢r + \gamma \sum _{s^{′}}p(s^{′} | s,a)v_{k}^{(j)}(s^{′})\right]$
 
-​	<b>Set</b> $v_k = v_k ^{(j_{truncate})}$		*# Note that when $j \rightarrow \infty$, $v_k ^{(j)}$ converges to $v_{\pi_k}$ of current $\pi_k $*
+&emsp;&emsp;<b>Set</b> $v_k = v_k ^{(j_{truncate})}$  *# Note that when $j \rightarrow \infty$, $v_k ^{(j)}$ converges to $v_{\pi_k}$ of current $\pi_k$*
 
-​							    *# and it can be proved in math that for any iteration $j$，$v_k^{j-1}<v_k^j<v_k^{j_{truncate}}$.*
+​							        *# and it can be proved mathematically that for any iteration $j$，$v_k^{j-1}<v_k^j<v_k^{j_{truncate}}$.*
 
-​							    *# S.t. $v_{\pi_k}$ is taken as the evaluation of  $\pi_k $, and we improve $\pi_k $ based on $v_{\pi_k}$.*
+​							        *# S.t. $v_{\pi_k}$ is taken as the evaluation of  $\pi_k$, and we improve $\pi_k$ based on $v_{\pi_k}$.*
 
-​							    *# For computational efficiency, only iterate over $j < j_{truncate}$*
+​							        *# For computational efficiency, only iterate over $j < j_{truncate}$*
 
-​							    *# because $v_k ^{(j_{truncate})}$ is close enough to $v_{\pi_k}$.* 
+​							        *# because $v_k ^{(j_{truncate})}$ is close enough to $v_{\pi_k}$.* 
 
-​	*Policy improvement:*
+​&emsp;&emsp;*Policy improvement:*
 
-​	<b>For</b> every state $s \in \cal{S}$, <b>do</b>
+&emsp;&emsp;<b>For</b> every state $s \in \cal{S}$, <b>do</b>
 
-​		<b>For</b> every action $a \in \cal{A}(s)$, <b>do</b>
+&emsp;&emsp;&emsp;&emsp;<b>For</b> every action $a \in \cal{A}(s)$, <b>do</b>
 
-​			$q_{k}(s,a) = \sum _{r}p(r | s,a)⁢⁢r + \gamma \sum _{s^{′}}p(s^{′} | s,a)v_{k}(s^{′})$
+​&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$q_{k}(s,a) = \sum _{r}p(r | s,a)⁢⁢r + \gamma \sum _{s^{′}}p(s^{′} | s,a)v_{k}(s^{′})$
 
-​  	 	$a_k^*(s) = \arg \max \limits_{a} q_k(s,a)$
+​&emsp;&emsp;&emsp;&emsp;$a_k^*(s) = \arg \max \limits_{a} q_k(s,a)$
 
-​		$\pi_{k+1}(a|s) = 1$ if $a=a_k^*$, and $\pi_{k+1}(a|s) = 0$ otherwise
+​&emsp;&emsp;&emsp;&emsp;$\pi_{k+1}(a|s) = 1$ if $a=a_k^*$, and $\pi_{k+1}(a|s) = 0$ otherwise
 
-​							    *# Lemma: If $\pi_{k+1}=\arg \max \limits_{\pi }\left(r_{\pi } + \gamma P_{\pi }v_{\pi_k}\right. )$ then $v_{\pi_{k} }<v_{\pi_{k+1} } $ for any $k$.* 
+​							    *# Lemma: If $\pi_{k+1}=\arg \max \limits_{\pi }\left(r_{\pi } + \gamma P_{\pi }v_{\pi_k}\right. )$ then $v_{\pi_{k} }<v_{\pi_{k+1} }$ for any $k$.* 
 
 ​							    *# Theorem: The state value generated by the iteration converges to the optimal state value $v^{\ast}$,*
 
@@ -312,13 +312,13 @@ $$
 
 The case of $j_{truncate} = 1$ is *Value Iteration Algorithm*, and the case of $j_{truncate} = \infty$ is *Policy Iteration Algorithm*.
 
-<img src="fig1.png" style="zoom: 22%;" />
+<img src="fig1.png" style="zoom: 30%;" />
 
-### MC: Monte Carlo Learning
+## <span style="color:#e5b567;">MC: Monte Carlo Learning</span>
 
 > model-free RL: When model is unavailable, we can use data.
 
-#### MC Basic algorithm
+### MC Basic algorithm
 
 > Many model-based and model-free RL algorithms fall into this framework.
 
@@ -331,19 +331,19 @@ The case of $j_{truncate} = 1$ is *Value Iteration Algorithm*, and the case of $
 
 <b>For</b> the $k$th iteration $(k = 0, 1, 2, . . . )$, <b>do</b>
 
-​	<b>For</b> every state $s \in \cal{S}$, <b>do</b>
+​&emsp;&emsp;<b>For</b> every state $s \in \cal{S}$, <b>do</b>
 
-​		Collect sufficiently many episodes starting from $(s,a)$ following $\pi_k $
+​&emsp;&emsp;&emsp;&emsp;Collect sufficiently many episodes starting from $(s,a)$ following $\pi_k$
 
-​		*Policy evaluation:*
+​&emsp;&emsp;&emsp;&emsp;*Policy evaluation:*
 
-​		$q_{\pi_k}(s, a) \approx q_k(s,a)=$ average return of all the episodes starting from $(s,a)$
+​&emsp;&emsp;&emsp;&emsp;$q_{\pi_k}(s, a) \approx q_k(s,a)=$ average return of all the episodes starting from $(s,a)$
 
-​	*Policy improvement:*
+​&emsp;&emsp;*Policy improvement:*
 
-​	$a_k^*(s) = \arg \max \limits_{a} q_k(s,a)$
+​&emsp;&emsp;$a_k^*(s) = \arg \max \limits_{a} q_k(s,a)$
 
-​	$\pi_{k+1}(a|s) = 1$ if $a=a_k^*$, and $\pi_{k+1}(a|s) = 0$ otherwise
+​&emsp;&emsp;$\pi_{k+1}(a|s) = 1$ if $a=a_k^*$, and $\pi_{k+1}(a|s) = 0$ otherwise
 
 ---
 
@@ -387,7 +387,7 @@ When to update the policy:
   - Even if using the single episode we sampled as $q(s,a)$ is imprecise,  as long as the relative values of $q(s,a)$ for different $a$ are roughly correct, the policy still selects the action with higher return in $\arg \max \limits_{a} q_k(s,a)$, thus improving on the right track.
   - When the policy gets better, **it generates episodes that are closer to the optimal trajectory, and consequently less random (i.e. the variance of $q_k(s,a)$ gets smaller and thus $q_k(s,a)$ converges to $q_{\pi_k}(s, a)$ continuously)**.
 
-#### MC Exploring Starts
+### MC Exploring Starts
 
 *Pseudocode:*
 
@@ -399,23 +399,23 @@ When to update the policy:
 
 <b>For</b> each episode, <b>do</b>
 
-​	*Episode generation:* Select a starting state-action pair $(s_0, a_0)$ and ensure that all pairs can be possibly selected (this is the exploring-starts condition). Following the current policy, generate an episode of length $T$: $s_0, a_0,r_1, ..., s_{T-1}, a_{T-1},r_{T}$.
+​&emsp;&emsp;*Episode generation:* Select a starting state-action pair $(s_0, a_0)$ and ensure that all pairs can be possibly selected as starting point (this is the exploring-starts condition). Following the current policy, generate an episode of length $T$: $s_0, a_0,r_1, ..., s_{T-1}, a_{T-1},r_{T}$.
 
-​	<b>Initialization</b> for each episode: $g \leftarrow 0$
+​&emsp;&emsp;<b>Initialization</b> for each episode: $g \leftarrow 0$
 
-<b>	For</b> each step of the episode, $t = T-1, T-2, ... , 0$, <b>do</b>	*# Compute reversely from the end of the episode.*
+&emsp;&emsp;<b>For</b> each step of the episode, $t = T-1, T-2, ... , 0$, <b>do</b>	*# Compute reversely from the end of the episode.*
 
-​		$g \leftarrow \gamma g + r_{t+1}$							         		*#  S.t. only need one step of calculation for each update of $g$.*
+​&emsp;&emsp;&emsp;&emsp;$g \leftarrow \gamma g + r_{t+1}$							         	*#  S.t. only need one step of calculation for each update of $g$.*
 
-​		$Returns(s_t, a_t) \leftarrow Returns(s_t,a_t) \cup \{g\}$
+​&emsp;&emsp;&emsp;&emsp;$Returns(s_t, a_t) \leftarrow Returns(s_t,a_t) \cup \{g\}$
 
-​		*Policy evaluation:*
+​&emsp;&emsp;&emsp;&emsp;*Policy evaluation:*
 
-​		$q(s_t,a_t) \leftarrow$ average($Returns(s_t,a_t)$)
+​&emsp;&emsp;&emsp;&emsp;$q(s_t,a_t) \leftarrow$ average($Returns(s_t,a_t)$)
 
-​		*Policy improvement:*
+​&emsp;&emsp;&emsp;&emsp;*Policy improvement:*
 
-​		$\pi(a|s_t) = 1$ if $a=\arg \max \limits_{a} q(s_t, a)$, and $\pi(a|s_t) = 0$ otherwise
+​&emsp;&emsp;&emsp;&emsp;$\pi(a|s_t) = 1$ if $a=\arg \max \limits_{a} q(s_t, a)$, and $\pi(a|s_t) = 0$ otherwise
 
 ---
 
@@ -423,7 +423,7 @@ When to update the policy:
 
 In theory, only if every action value for every state is well explored, can we select the optimal actions correctly. Otherwise, if an action is not explored, this action may happen to be the optimal one and hence be missed.
 
-#### MC $\varepsilon$-Greedy
+### MC $\varepsilon$-Greedy
 
 > What is a soft policy? A policy is *soft* if the probability to take any action is positive. With a soft policy, a few episodes that are sufficiently long can visit every state-action pair. 
 >
@@ -442,25 +442,25 @@ In theory, only if every action value for every state is well explored, can we s
 
 <b>For</b> each episode, <b>do</b>
 
-​	*Episode generation:* Select a starting state-action pair $(s_0, a_0)$ (the exploring-starts condition is not required). Following the current policy, generate an episode of length $T$: $s_0, a_0,r_1, ..., s_{T-1}, a_{T-1},r_{T}$.
+​&emsp;&emsp;*Episode generation:* Select a starting state-action pair $(s_0, a_0)$ (the exploring-starts condition is not required). Following the current policy, generate an episode of length $T$: $s_0, a_0,r_1, ..., s_{T-1}, a_{T-1},r_{T}$.
 
-​	<b>Initialization</b> for each episode: $g \leftarrow 0$
+​&emsp;&emsp;<b>Initialization</b> for each episode: $g \leftarrow 0$
 
-​	<b>	For</b> each step of the episode, $t = T-1, T-2, ... , 0$, <b>do</b>
+​&emsp;&emsp;<b>For</b> each step of the episode, $t = T-1, T-2, ... , 0$, <b>do</b>
 
-​		$g \leftarrow \gamma g + r_{t+1}$
+​&emsp;&emsp;&emsp;&emsp;$g \leftarrow \gamma g + r_{t+1}$
 
-​		$Returns(s_t, a_t) \leftarrow Returns(s_t,a_t) \cup \{g\}$
+​&emsp;&emsp;&emsp;&emsp;$Returns(s_t, a_t) \leftarrow Returns(s_t,a_t) \cup \{g\}$
 
-​		*Policy evaluation:*
+​&emsp;&emsp;&emsp;&emsp;*Policy evaluation:*
 
-​		$q(s_t,a_t) \leftarrow$ average($Returns(s_t,a_t)$)
+​&emsp;&emsp;&emsp;&emsp;$q(s_t,a_t) \leftarrow$ average($Returns(s_t,a_t)$)
 
-​		*Policy improvement:*		
+&emsp;&emsp;&emsp;&emsp;*Policy improvement:*		
 
-​		Let $a^*=\arg \max \limits_{a} q(s_t, a)$ and 
+​&emsp;&emsp;&emsp;&emsp;Let $a^*=\arg \max \limits_{a} q(s_t, a)$ and 
 $$
-\pi ( a | s _ { t } ) = \left\{ \begin{array} { c c } 1 - \frac { \left| \mathcal { A } \left( s _ { t } \right) \right| - 1 } { \left| \mathcal { A } \left( s _ { t } \right) \right| } \epsilon , & a = a ^ { * } \\ \frac { 1 } { \left| \mathcal { A } \left( s _ { t } \right) \right| } \epsilon , & a \neq a ^ { * } \end{array} \right.
+\pi ( a | s _ { t } ) = \left\{ \begin{array} { c c } 1 - \frac { \left| \mathcal { A } \left( s _ { t } \right) \right| - 1 } { \left| \mathcal { A } \left( s _ { t } \right) \right| } \epsilon , & \text{for the greedy action} \\ \frac { 1 } { \left| \mathcal { A } \left( s _ { t } \right) \right| } \epsilon , & \text{fot the other } |\cal{A}\left(s\right)|-1 \text{ actions} \end{array} \right.
 $$
 
 ---
@@ -475,13 +475,13 @@ The disadvantage is that $ε$-greedy polices are not optimal in general.
 
 
 
-### SA: Stochastic Approximation
+## <span style="color:#e5b567;">SA: Stochastic Approximation</span>
 
 SA refers to a broad class of stochastic iterative algorithms solving root finding or optimization problems.
 
 Compared to many other root-finding algorithms such as gradient-based methods, SA is powerful in the sense that it <b>does not require to know the expression of the objective function nor its derivative</b> (model-free).
 
-#### Robbins-Monro algorithm
+### Robbins-Monro algorithm
 
 <b>Problem statement:</b> Suppose we would like to find the root of the equation
 $$
@@ -493,7 +493,7 @@ w _ { k + 1 } = w _ { k } - a _ { k } \tilde { g } ( w _ { k } , \eta _ { k } ) 
 $$
 where
 
-- $w_k$is the kth estimate of the root
+- $w_k$ is the $k$th estimate of the root
 
 - $\tilde { g } ( w _ { k } , \eta _ { k } ) = g(w_k)+\eta_k$ is the $k$th noisy observation
 
@@ -509,11 +509,11 @@ The function $g(w)$ is viewed as a black box, for which only the input sequence 
 
 In the Robbins-Monro algorithm, if
 
-1.  $0 < c _ { 1 } \leq \nabla _ { w } g ( w ) \leq c _ { 2 }$ for all $w $; 
-2.  $\sum _ { k = 1 } ^ { \infty } a _ { k } = \infty$ and $\sum _ { k = 1 } ^ { \infty } a _ { k } ^ { 2 } < \infty $; 
+1.  $0 < c _ { 1 } \leq \nabla _ { w } g ( w ) \leq c _ { 2 }$ for all $w$; 
+2.  $\sum _ { k = 1 } ^ { \infty } a _ { k } = \infty$ and $\sum _ { k = 1 } ^ { \infty } a _ { k } ^ { 2 } < \infty$; 
 3.  $\mathbb { E } \left[ \eta _ { k } \mid \mathcal { H } _ { k } \right] = 0$ and $\mathbb { E } \left[ \eta _ { k } ^ { 2 } \mid \mathcal { H } _ { k } \right] < \infty ;$ 
 
-where $$\mathcal { H } _ { k } = \left\{ w _ { k } , w _ { k - 1 } , \ldots \right\}$$, then $w_k$  converges w.p.1 to the root $w^*$ satisfying $g(w^*) = 0$.
+where $$\mathcal { H } _ { k } = \left\{ w _ { k } , w _ { k - 1 } , \ldots \right\},$$then $w_k$  converges w.p.1 to the root $w^*$ satisfying $g(w^*) = 0$.
 
 ---
 
@@ -527,13 +527,13 @@ Explanations of the three conditions:
 
   - $\sum _ { k = 1 } ^ { \infty } a _ { k }^2 < \infty$ ensures that $a_k$ converges to zero as $k \rightarrow \infty$, so $w_k$ converges to $w^*$  as well. 
 
-    Also, if $w _ { k } \rightarrow w ^ { * } , g ( w _ { k } ) \rightarrow 0$ and $\tilde { g } ( w _ { k } , \eta _ { k } )$ is dominant by $\eta _ { k } $. This randomness should be limited.
+    Also, if $w _ { k } \rightarrow w ^ { * } , g ( w _ { k } ) \rightarrow 0$ and $\tilde { g } ( w _ { k } , \eta _ { k } )$ is dominant by $\eta _ { k }$. This randomness should be limited.
 
-  - $\sum _ { k = 1 } ^ { \infty } a _ { k } = \infty$ ensures that $a_k$ do not converge to zero too fast. Otherwise  $a_k$ might converge to zero too early when there is still quite a distance between $w_k$ and $w^*$, in this case $w_k$ is not able to get closer to $w^*$.
+  - $\sum _ { k = 1 } ^ { \infty } a _ { k } = \infty$ ensures that $a_k$ do not converge to zero too fast. Otherwise  $a_k$ might converge to zero too early when there is still quite a distance between $w_k$ and $w^*$, and in this case $w_k$ is not able to get closer to $w^*$.
 
 - Condition 3: The noise should be unbiased and its variance should be limited.
 
-#### BGD, SGD, MBGD
+### BGD, SGD, MBGD
 
 <b>Problem setup:</b> Suppose we aim to solve the following optimization problem:
 $$
@@ -552,7 +552,7 @@ All the samples are used in every iteration, so the approximation to the true gr
 $$
 w _ { k + 1 } = w _ { k } - \alpha _ { k } \underbrace{\frac { 1 } { m } \sum _ { j \in \mathcal { I } _ { k } } \nabla _ { w } f ( w _ { k } , x _ { j } ) }_{\approx  \mathbb { E } \left[ \nabla _ { w } f \left( w _ { k } , X \right) \right] }, \quad\quad(MBGD) \\
 $$
-$\cal{I}_k$ is a subset of $\{1, . . . , n\}$ with the size as $|\cal{I}_k | = m$. The set  $\cal{I}_k$ is obtained by $m$ times idd samplings.
+$\cal{I}_k$ is a subset of $\{1, . . . , n\}$ with the size $|\cal{I}_k | = m$. The set  $\cal{I}_k$ is obtained by $m$ times idd samplings.
 $$
 w _ { k + 1 } = w _ { k } - \alpha _ { k } \nabla _ { w } f ( w _ { k } , x _ { k } ). \quad\quad (SGD)
 $$
@@ -561,11 +561,11 @@ $$
 
 
 
-### TD: Temporal Difference Learning
+## <span style="color:#e5b567;">TD: Temporal Difference Learning</span>
 
 Problem statement:
 
-- Given policy $\pi$, the aim is to estimate the state values $\{v_\pi (s)\}_{s\in S}$ <b>under $\pi$ </b>.
+- Given policy $\pi$, the aim is to estimate the state values $\{v_\pi (s)\}_{s\in S}$ <b>under $\pi$</b>.
 
 <b>The TD learning algorithm is</b>
 $$
@@ -582,7 +582,7 @@ where $t = 0,1,2,...$
 
 Observation: The new estimate $v_{t + 1}(s_{t})$ is a combination of the current estimate $v_{t}(s_{t})$ and the TD error.
 
-- Interpretation of *TD target $\bar{v}_t$*: $v_{t}(s_{t})$ is the estimate for state value at $s_t$ before taking the action $a_t$. At $s_{t+1}$ (i.e. after taking $a_t$), the agent gets the true reward $r_{t+1}$ along with the estimate $v_{t}(s_{t+1})$ for the new state $s_{t+1}$. Then $r_{t + 1} + \gamma v_{t}(s_{t + 1})$ is considered more precise in estimating the true state value $v_\pi(s_t)$ (<b>as it contains the real feedback of a step forward</b>), and thus becomes the *target* for updating $v_{t}(s_{t})$.
+- Interpretation of *TD target $\bar{v}_t$*: $v_{t}(s_{t})$ is the estimate for state value at $s_t$ before taking the action $a_t$. At $s_{t+1}$ (i.e. after taking $a_t$), the agent gets the true reward $r_{t+1}$ along with the estimate $v_{t}(s_{t+1})$ for the new state $s_{t+1}$. Then $r_{t + 1} + \gamma v_{t}(s_{t + 1})$ is considered more precise in estimating the true state value $v_\pi(s_t)$ (<b>as it contains the real feedback from a step forward</b>), and thus becomes the *target* for updating $v_{t}(s_{t})$.
 
 - Concluded from above, TD error can be interpreted as <b>innovation</b>, which means new information obtained from the experience.
 
@@ -596,5 +596,246 @@ Observation: The new estimate $v_{t + 1}(s_{t})$ is a combination of the current
 
 <b>Other properties</b>: The TD algorithm in $(1)$ <b>only estimates the state value</b> of a given policy. It does not estimate the action values nor search for optimal policies.
 
+### Sarsa
 
+Sarsa is the abbreviation of  **state-action-reward-state-action**.
 
+The aim is to estimate the action values of a given policy $\pi$.
+
+Suppose we have some experience $\left\{ \left( s _ { t } , a _ { t } , r _ { t + 1 } , s _ { t + 1 } , a _ { t + 1 } \right) \right\} _ { t }$ .
+
+We can use the following Sarsa algorithm to estimate the action values:
+
+$$
+q_{t + 1}\left(s_{t},a_{t}\right) = q_{t}\left(s_{t},a_{t}\right)−\alpha _{t}\left(s_{t},a_{t}\right)\left[q_{t}\left(s_{t},a_{t}\right)−\left[r_{t + 1} + \gamma q_{t}\left(s_{t + 1},a_{t + 1}\right)\right]\right. 
+$$
+$$
+q _ { t + 1 } ( s , a ) = q _ { t } ( s , a ) , \quad \forall ( s , a ) \neq \left( s _ { t } , a _ { t } \right) ,
+$$
+where $t=0,1,2,\dots$
+- $q_{t}\left(s_{t},a_{t}\right)$ is an estimate of $q_{\pi}\left(s_{t},a_{t}\right)$；
+- $\alpha _{t}\left(s_{t},a_{t}\right)$ is the learning rate depending on $s_t,a_t$.
+
+> Note that the relationship between Sarsa and the previous TD learning  algorithm is that We can obtain Sarsa by replacing the state value estimate $v(s)$  in the TD algorithm with the action value estimate $q(s, a)$. As a result,  **Sarsa is an action-value version of the TD algorithm**.
+
+The expression of  Sarsa suggests that it is a stochastic approximation algorithm solving the following equation:
+
+$$q _ { \pi } ( s , a ) = \mathbb { E } \left[ R + \gamma q _ { \pi } \left( S ^ { \prime } , A ^ { \prime } \right) \mid s , a \right] , \quad \forall s , a .$$
+This is another expression of the Bellman equation expressed in terms of action values.
+
+Since the ultimate goal of RL is to find optimal policies, we combine Sarsa with a policy improvement step.  The combined algorithm is also called Sarsa.
+
+*Pseudocode:*
+
+---
+<b>For</b> each episode, <b>do</b>
+
+&emsp;&emsp;If the current $s_t$ is not the target state, do
+
+&emsp;&emsp;&emsp;&emsp;Collect the experience $(s_t, a_t, r_{t+1}, s_{t+1}, a_{t+1})$: In particular, take action $a_t$ following $\pi_t(s_t)$, generate $r_{t+1}$, $s_{t+1}$, and then take action $a_{t+1}$ following $\pi_t(s_{t+1})$.
+&emsp;&emsp;&emsp;&emsp;*Update q-value:*
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$q_{t+1}(s_t, a_t) = q_t(s_t, a_t) - \alpha_t(s_t, a_t) \Big[ q_t(s_t, a_t) - [r_{t+1} + \gamma q_t(s_{t+1}, a_{t+1})] \Big]$
+&emsp;&emsp;&emsp;&emsp;*Update policy:*
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$\pi_{t+1}(a|s_t) = 1 - \frac{\epsilon}{|\mathcal{A}|}(|\mathcal{A}| - 1) \text{ if } a = \arg\max_a q_{t+1}(s_t, a)$
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$\pi_{t+1}(a|s_t) = \frac{\epsilon}{|\mathcal{A}|} \text{ otherwise}$
+
+---
+
+<img src="fig3.png" style="zoom: 40%;" />
+
+### Expected Sarsa
+
+A variant of Sarsa is the Expected Sarsa algorithm:
+
+$$q _ { t + 1 } \left( s _ { t } , a _ { t } \right) = q _ { t } \left( s _ { t } , a _ { t } \right) - \alpha _ { t } \left( s _ { t } , a _ { t } \right) \left[ q _ { t } \left( s _ { t } , a _ { t } \right) - \left( r _ { t + 1 } + \gamma \mathbb { E } \left[ q _ { t } \left( s _ { t + 1 } , A \right) \right] \right) \right] ,$$
+$$q _ { t + 1 } ( s , a ) = q _ { t } ( s , a ) , \quad \forall ( s , a ) \neq \left( s _ { t } , a _ { t } \right) ,$$ 
+where$$𝔼\left[q_{t}\left(s_{t + 1},A\right)\right] = \sum _{a}\pi _{t}\left(a \mid s_{t + 1}\right)q_{t}\left(s_{t + 1},a\right) \doteq v_{t}\left(s_{t + 1}\right)$$ 
+**Compared to Sarsa:**
+
+- The *TD target* is changed into expectation form.
+- Need more computation. But it is beneficial in the sense that it reduces the  estimation variances because it reduces random variables in Sarsa from $(s_t, a_t, r_{t+1}, s_{t+1}, a_{t+1})$ to $(s_t, a_t, r_{t+1}, s_{t+1})$.
+
+### $n$-step Sarsa
+
+$n$-step Sarsa: can unify Sarsa and Monte Carlo learning.
+
+The definition of action value is
+
+$$q_\pi(s, a) = \mathbb{E}[G_t|S_t = s, A_t = a].$$
+
+The discounted return $G_t$ can be written in different forms as
+
+$$\begin{array}{r c l} \text{Sarsa} & \longleftarrow & G_t^{(1)} = R_{t+1} + \gamma q_\pi(S_{t+1}, A_{t+1}), \\ & & G_t^{(2)} = R_{t+1} + \gamma R_{t+2} + \gamma^2 q_\pi(S_{t+2}, A_{t+2}), \\ & & \quad \vdots \\ n\text{-step Sarsa} & \longleftarrow & G_t^{(n)} = R_{t+1} + \gamma R_{t+2} + \dots + \gamma^n q_\pi(S_{t+n}, A_{t+n}), \\ & & \quad \vdots \\ \text{MC} & \longleftarrow & G_t^{(\infty)} = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \dots \end{array}$$
+
+It should be noted that $G_t = G_t^{(1)} = G_t^{(2)} = G_t^{(n)} = G_t^{(\infty)}$, where the superscripts merely indicate the different decomposition structures of $G_t$.
+
+- Sarsa aims to solve
+    
+$$q_\pi(s, a) = \mathbb{E}[G_t^{(1)}|s, a] = \mathbb{E}[R_{t+1} + \gamma q_\pi(S_{t+1}, A_{t+1})|s, a].$$
+
+- MC learning aims to solve
+    
+$$q_\pi(s, a) = \mathbb{E}[G_t^{(\infty)}|s, a] = \mathbb{E}[R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \dots |s, a].$$
+
+- An intermediate algorithm called $n$-step Sarsa aims to solve
+    
+$$q_\pi(s, a) = \mathbb{E}[G_t^{(n)}|s, a] = \mathbb{E}[R_{t+1} + \gamma R_{t+2} + \dots + \gamma^n q_\pi(S_{t+n}, A_{t+n})|s, a].$$
+
+- The algorithm of $n$-step Sarsa is    
+$$\begin{aligned} q_{t+1}(s_t, a_t) = \ & q_t(s_t, a_t) - \alpha_t(s_t, a_t)\Big[q_t(s_t, a_t) - [r_{t+1} + \gamma r_{t+2} + \dots + \gamma^n q_t(s_{t+n}, a_{t+n})]\Big]. \end{aligned}$$
+
+$n$-step Sarsa is more general because it becomes the (one-step) Sarsa algorithm when $n=1$ and the MC learning algorithm when $n=\infty$.
+### Q-learning
+
+Introduce **on-policy** learning and **off-policy** learning:
+
+There exist two policies in a TD learning task:  
+- The behavior policy is used to generate experience samples.  
+- The target policy is constantly updated toward an optimal policy.  
+
+On-policy vs off-policy:  
+- When the behavior policy is the same as the target policy, such kind of learning is called on-policy.  
+- When they are different, the learning is called off-policy.
+
+Evaluating action value by Q-learning: 
+$$q _ { t + 1 } \left( s _ { t } , a _ { t } \right) = q _ { t } \left( s _ { t } , a _ { t } \right) - \alpha _ { t } \left( s _ { t } , a _ { t } \right) \Big[ q _ { t } \left( s _ { t } , a _ { t } \right) - [ r _ { t + 1 } + \gamma \max _ { a \in \mathcal { A } } q _ { t } \left( s _ { t + 1 } , a \right) ]\Big] ,$$
+$$q _ { t + 1 } ( s , a ) = q _ { t } ( s , a ) , \quad \forall ( s , a ) \neq \left( s _ { t } , a _ { t } \right) ,$$*Pseudocode:* Policy searching by Q-learning **(on-policy version)**
+
+---
+
+<b>For</b> each episode, <b>do</b>
+&emsp;&emsp;<b>If</b> the current st is not the target state, <b>do</b>
+&emsp;&emsp;&emsp;&emsp;Collect the experience$(s_t, a_t, r_{t+1}, s_{t+1})$: In particular, take action $a_t$  following $\pi_t(s_t)$, generate $r_{t+1}$, $s_{t+1}$.
+&emsp;&emsp;&emsp;&emsp;Update q-value:
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$q _ { t + 1 } \left( s _ { t } , a _ { t } \right) = q _ { t } \left( s _ { t } , a _ { t } \right) - \alpha _ { t } \left( s _ { t } , a _ { t } \right) \Big[ q _ { t } \left( s _ { t } , a _ { t } \right) - [ r _ { t + 1 } + \gamma \max _ { a \in \mathcal { A } } q _ { t } \left( s _ { t + 1 } , a \right) ]\Big] ,$
+&emsp;&emsp;&emsp;&emsp;Update policy:
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$\pi_{t+1}(a|s_t) = 1 - \frac{\epsilon}{|\mathcal{A}|}(|\mathcal{A}| - 1) \text{ if } a = \arg\max_a q_{t+1}(s_t, a)$
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$\pi_{t+1}(a|s_t) = \frac{\epsilon}{|\mathcal{A}|} \text{ otherwise}$
+
+---
+
+*Pseudocode:* Policy searching by Q-learning **(off-policy version)**
+
+---
+
+<b>For</b> each episode $\left\{ s _ { 0 } , a _ { 0 } , r _ { 1 } , s _ { 1 } , a _ { 1 } , r _ { 2 } , \ldots \right\}$ generated by $\pi_b$, <b>do</b>
+
+&emsp;&emsp;<b>For</b> each step $t = 0, 1, 2, \dots$ of the episode, <b>do</b>
+&emsp;&emsp;&emsp;&emsp;Collect the experience$(s_t, a_t, r_{t+1}, s_{t+1})$: In particular, take action $a_t$  following $\pi_t(s_t)$, generate $r_{t+1}$, $s_{t+1}$.
+&emsp;&emsp;&emsp;&emsp;Update q-value:
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$q _ { t + 1 } \left( s _ { t } , a _ { t } \right) = q _ { t } \left( s _ { t } , a _ { t } \right) - \alpha _ { t } \left( s _ { t } , a _ { t } \right) \Big[ q _ { t } \left( s _ { t } , a _ { t } \right) - [ r _ { t + 1 } + \gamma \max _ { a \in \mathcal { A } } q _ { t } \left( s _ { t + 1 } , a \right) ]\Big] ,$
+&emsp;&emsp;&emsp;&emsp;Update policy:
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$\pi_{T,t+1}(a|s_t) = 1 \text{ if } a = \arg\max_a q_{t+1}(s_t, a)$
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$\pi_{T,t+1}(a|s_t) = 0 \text{ otherwise}$
+
+---
+
+where 
+- $\pi_b$ is the behavior policy for generating $a_t$ in $s_t$. It can be any policy.
+- $\pi_T$ is the target policy.
+
+Q-learning aims to solve the **Bellman optimality equation**: 
+
+$$q ( s , a ) = \mathbb { E } \left[ R _ { t + 1 } + \gamma \max _ { a } q \left( S _ { t + 1 } , a \right) \mid S _ { t } = s , A _ { t } = a \right] , \quad \forall s , a .$$ 
+## <span style="color:#e5b567;">Value Function Approximation</span>
+
+### Algorithm for state value estimation
+
+#### Policy evaluation problem: 
+Let $v_\pi(s)$ and $\hat{v}(s, w)$ be the true state value and a function for approximation. Our goal is to find an optimal $w$ so that $\hat{v}(s, w)$ can best approximate $v_\pi(s)$ for every $s$. To find the optimal $w$, we need two steps:
+- The first step is to define an objective function.
+- The second step is to derive algorithms optimizing the objective  function.
+
+The **objective function** is$$J ( w ) = \mathbb { E } \left[ \left( v _ { \pi } ( S ) - \hat { v } ( S , w ) \right) ^ { 2 } \right] $$
+Our goal is to find the best $w$ that can minimize $J(w)$.
+
+The expectation is with respect to the random variable $S \in \cal{S}$. What is the probability distribution of $S$?
+An intuitive way is to use a **uniform distribution** by treating all the states to be equally important by setting the probability of each state as $1/|\cal{S}|$. 
+- In this case, the objective function becomes
+$$J ( w ) = \mathbb { E } \left[ \left( v _ { \pi } ( S ) - \hat { v } ( S , w ) \right) ^ { 2 } \right] = \frac { 1 } { | \mathcal { S } | } \sum _ { s \in \mathcal { S } } \left( v _ { \pi } ( s ) - \hat { v } ( s , w ) \right) ^ { 2 } $$
+- The states may not be equally important. For example, some states may be rarely visited by a policy. Hence, this way does not consider the real dynamics of the Markov process under the given policy.
+
+Hence introducing **stationary distribution**. In short, it describes the long-run behavior of a Markov process.
+
+- Let $\left\{ d _ { \pi } ( s ) \right\} _ { s \in \mathcal { S } }$ denote the stationary distribution of the Markov process under policy $\pi$. By definition, $d _ { \pi } ( s ) \geq 0$ and $\sum _ { s \in \mathcal { S } } d _ { \pi } ( s ) = 1$. 
+- The objective function can be rewritten as a weighted squared error.
+$$J ( w ) = \mathbb { E } \left[ \left( v _ { \pi } ( S ) - \hat { v } ( S , w ) \right) ^ { 2 } \right] = \sum _ { s \in \mathcal { S } } d _ { \pi } ( s ) \left( v _ { \pi } ( s ) - \hat { v } ( s , w ) \right) ^ { 2 } $$
+- Since more frequently visited states have higher values of $d_\pi(s)$, their weights in the objective function are also higher than those rarely visited states.
+
+> Stationary distribution is also called steady-state distribution, or  limiting distribution.
+> 
+>  Let $n_\pi(s)$ denote the number of times that $s$ has been visited in a very long episode generated by $\pi$. Then, $d_\pi(s)$ can be approximated by
+>  $$d _ { \pi } ( s ) \approx \frac { n _ { \pi } ( s ) } { \sum _ { s ^ { \prime } \in \mathcal { S } } n _ { \pi } \left( s ^ { \prime } \right) }$$
+
+#### Optimization algorithms
+
+While we have the objective function, the next step is to optimize it. To minimize the objective function $J(w)$, we can use the gradient-descent algorithm:$$w _ { k + 1 } = w _ { k } - \alpha _ { k } \nabla _ { w } J \left( w _ { k } \right)$$The true gradient is
+$$
+\begin{align}
+\nabla _ { w } J ( w ) &= \nabla _ { w } \mathbb { E } \left[ \left( v _ { \pi } ( S ) - \hat { v } ( S , w ) \right) ^ { 2 } \right] \\
+&= \mathbb { E } \left[ \nabla _ { w } \left( v _ { \pi } ( S ) - \hat { v } ( S , w ) \right) ^ { 2 } \right]\\
+&= 2 \mathbb { E } \left[ \left( v _ { \pi } ( S ) - \hat { v } ( S , w ) \right) \left( - \nabla _ { w } \hat { v } ( S , w ) \right) \right]\\
+&= - 2 \mathbb { E } \left[ \left( v _ { \pi } ( S ) - \hat { v } ( S , w ) \right) \nabla _ { w } \hat { v } ( S , w ) \right]
+\end{align}
+$$
+
+ We can use the stochastic gradient to replace the true gradient:
+ 
+$$w _ { t + 1 } = w _ { t } + \alpha _ { t } \left( v _ { \pi } \left( s _ { t } \right) - \hat { v } \left( s _ { t } , w _ { t } \right) \right) \nabla _ { w } \hat { v } \left( s _ { t } , w _ { t } \right) $$
+
+where $s_t$ is a sample of $S$. Here, $2\alpha k$ is merged to $\alpha k$.
+
+- This algorithm is **not implementable** because it requires the true state value $v_\pi$, which is the unknown to be estimated.
+  
+  Therefore, we can replace $v_\pi(s_t)$ with an approximation so that the algorithm is implementable.
+
+In particular,
+
+- First, **Monte Carlo learning with function approximation**: 
+  
+  Let $g_t$ be the discounted return starting from $s_t$ in the episode. Then, $g_t$ can be used to approximate $v_\pi(s_t)$. The algorithm becomes$$w _ { t + 1 } = w _ { t } + \alpha _ { t } \left( g _ { t } - \hat { v } \left( s _ { t } , w _ { t } \right) \right) \nabla _ { w } \hat { v } \left( s _ { t } , w _ { t } \right) $$
+- Second, **TD learning with function approximation**:
+  
+  By the spirit of TD learning, $r _ { t + 1 } + \gamma \hat { v } \left( s _ { t + 1 } , w _ { t } \right)$ can be viewed as an approximation of $v_\pi(s_t)$. Then, the algorithm becomes$$w _ { t + 1 } = w _ { t } + \alpha _ { t } \left[ r _ { t + 1 } + \gamma \hat { v } \left( s _ { t + 1 } , w _ { t } \right) - \hat { v } \left( s _ { t } , w _ { t } \right) \right] \nabla _ { w } \hat { v } \left( s _ { t } , w _ { t } \right) $$ 
+*Pseudocode:* TD learning with function approximation
+
+<b>Initialization</b>: A function $\hat{v}(s, w)$ that is a differentiable in $w$. Initial parameter $w_0$.  
+
+<b>Aim</b>: Approximate the true state values of a given policy $\pi$.
+
+---
+<b>For</b> each episode generated following the policy $\pi$, <b>do</b>
+&emsp;&emsp;<b>For</b> each step $\left( s _ { t } , r _ { t + 1 } , s _ { t + 1 } \right)$, <b>do</b>
+&emsp;&emsp;&emsp;&emsp;In the general case,
+&emsp;&emsp;&emsp;&emsp;$w _ { t + 1 } = w _ { t } + \alpha _ { t } \left[ r _ { t + 1 } + \gamma \hat { v } \left( s _ { t + 1 } , w _ { t } \right) - \hat { v } \left( s _ { t } , w _ { t } \right) \right] \nabla _ { w } \hat { v } \left( s _ { t } , w _ { t } \right)$
+&emsp;&emsp;&emsp;&emsp;In the linear case,
+&emsp;&emsp;&emsp;&emsp;$w _ { t + 1 } = w _ { t } + \alpha _ { t } \left[ r _ { t + 1 } + \gamma \phi ^ { T } \left( s _ { t + 1 } \right) w _ { t } - \phi ^ { T } \left( s _ { t } \right) w _ { t } \right] \phi \left( s _ { t } \right)$
+
+---
+
+#### Selection of function approximators:
+
+An important question that has not been answered: How to select the function $\hat{v}(s, w)$?
+
+The first approach, which was widely used before, is to use a **linear function**.$$\hat { v } ( s , w ) = \phi ^ { T } ( s ) w$$
+  - Here, $\phi(s)$ is the feature vector, which can be a polynomial basis, Fourier basis, ...
+  
+ -  Disadvantage: Difficult to select appropriate feature vectors.
+
+  - Advantage: The theoretical properties of the TD algorithm in the linear case can be much better understood than in the nonlinear case.
+
+Linear function approximation is still powerful in the sense that the **tabular representation** is merely a special case of linear function approximation:
+
+- First, consider the special feature vector for state $s$:$$\phi ( s ) = e _ { s } \in \mathbb { R } ^ { | \mathcal { S } | } $$  where $e_s$ is a vector with the $s$th entry as $1$ and the others as $0$.
+- In this case, $$\hat { v } ( s , w ) = e _ { s } ^ { T } w = w ( s ) $$ 
+  where $w(s$) is the $s$th entry of $w$.
+- Recall that the TD-Linear algorithm is$$w _ { t + 1 } = w _ { t } + \alpha _ { t } \left[ r _ { t + 1 } + \gamma \phi ^ { T } \left( s _ { t + 1 } \right) w _ { t } - \phi ^ { T } \left( s _ { t } \right) w _ { t } \right] \phi \left( s _ { t } \right) $$ 
+  When $=\phi(s_t) = e_s$, the above algorithm becomes$$w _ { t + 1 } = w _ { t } + \alpha _ { t } \left( r _ { t + 1 } + \gamma w _ { t } \left( s _ { t + 1 } \right) - w _ { t } \left( s _ { t } \right) \right) e _ { s }$$ 
+  This is a vector equation that merely updates the $s_t$th entry of $w_t$.
+
+- Multiplying $e_{s_t}^T$ on both sides of the equation gives $$w_{t + 1}\left(s_{t}\right) = w_{t}\left(s_{t}\right) + \alpha _{t}\left(r_{t + 1} + \gamma w_{t}\left(s_{t + 1}\right)−w_{t}\left(s_{t}\right)\right)$$
+  which is exactly the tabular TD algorithm.
+  
+The second approach, which is widely used nowadays, is to use a **neural network** as a nonlinear function approximator.
+  
+  - The input of the NN is the state, the output is $\hat{v}(s, w)$, and the network parameter is $w$.

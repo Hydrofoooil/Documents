@@ -890,6 +890,33 @@ ln -s <sourcefile> <softfile> #为源文件创建软链接
 
 ## conda
 
+### 初始化
+
+1、如果报错 command not found，全盘搜索conda.sh
+```bash
+find /home /root /opt /usr /mnt -name "conda.sh" 2>/dev/null
+```
+```bash
+ls -d ~/miniconda3 ~/anaconda3 ~/miniforge3  #不想等搜索命令，可以手动 ls 一下这几个最常见的默认安装位置
+```
+
+2、如果输入conda有反应，但是无法激活环境
+```bash
+echo $CONDA_EXE
+```
+```bash
+which conda
+```
+
+3、source conda.sh
+假设输出：`/home/user/miniconda3/bin/conda`
+`conda.sh` 通常就在 `bin` 目录**同级**的 `etc/profile.d/` 目录下。
+- e.g. 输出`/mnt/pfs/scalelab2/yuhao/miniconda3/bin/conda`
+	那么 **conda.sh** 一定就在：`/mnt/pfs/scalelab2/yuhao/miniconda3/etc/profile.d/conda.sh`
+
+```bash
+source /mnt/pfs/scalelab2/yuhao/miniconda3/etc/profile.d/conda.sh
+```
 ### 环境管理
 
 ```bash
@@ -962,22 +989,22 @@ prefix键：`Ctrl+b`
 
 - 分屏
 
-  | **功能**         | **操作步骤 (记得先按 Ctrl+b 松手)**             | **助记**          |
-  | ---------------- | ----------------------------------------------- | ----------------- |
-  | **左右分屏**     | `Ctrl + b` 然后按 `%` (Shift + 5)               | 像中间有一条竖线  |
-  | **上下分屏**     | `Ctrl + b` 然后按 `"` (Shift + ')               | 像把一行字引起来  |
-  | **切换焦点分屏** | `Ctrl + b` 然后按 方向键 （其实可以直接鼠标点） | 上下左右跳        |
-  | **关闭分屏**     | `Ctrl + b` 然后按 `x` (再按 y 确认)             | 或者直接输 `exit` |
+| **功能**     | **操作步骤 (记得先按 Ctrl+b 松手)**      | **助记**       |
+| ---------- | ------------------------------ | ------------ |
+| **左右分屏**   | `Ctrl + b` 然后按 `%` (Shift + 5) | 像中间有一条竖线     |
+| **上下分屏**   | `Ctrl + b` 然后按 `"` (Shift + ') | 像把一行字引起来     |
+| **切换焦点分屏** | `Ctrl + b` 然后按 方向键 （其实可以直接鼠标点） | 上下左右跳        |
+| **关闭分屏**   | `Ctrl + b` 然后按 `x` (再按 y 确认)   | 或者直接输 `exit` |
 
 - 多开窗口
 
-  | **功能**       | **操作步骤 (记得先按 Ctrl+b 松手)**                      |
-  | -------------- | -------------------------------------------------------- |
-  | **新建窗口**   | `Ctrl + b` 然后按 `c` (Create)                           |
-  | **切换窗口**   | `Ctrl + b` 然后按 `0`~`9` (数字键)                       |
-  | **下一个窗口** | `Ctrl + b` 然后按 `n` (Next)                             |
-  | **上一个窗口** | `Ctrl + b` 然后按 `p` (Previous)                         |
-  | **关闭窗口**   | `Ctrl + b` 然后按 `&` (Shift + 7)，然后底部状态栏输入`y` |
+| **功能**       | **操作步骤 (记得先按 Ctrl+b 松手)**                      |
+| -------------- | -------------------------------------------------------- |
+| **新建窗口**   | `Ctrl + b` 然后按 `c` (Create)                           |
+| **切换窗口**   | `Ctrl + b` 然后按 `0`~`9` (数字键)                       |
+| **下一个窗口** | `Ctrl + b` 然后按 `n` (Next)                             |
+| **上一个窗口** | `Ctrl + b` 然后按 `p` (Previous)                         |
+| **关闭窗口**   | `Ctrl + b` 然后按 `&` (Shift + 7)，然后底部状态栏输入`y` |
 
 - 翻页模式（查看历史输出）
 
