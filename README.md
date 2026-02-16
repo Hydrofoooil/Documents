@@ -4,7 +4,7 @@
 
 
 
-<img src="Preview/cs231n.png" style="zoom: 67%;" />
+<img src="Preview/cs231n.png" style="zoom: 33%;" />
 
 
 
@@ -16,11 +16,11 @@
 
 
 
-<img src="Preview/NLP-1.png" alt="NLP-1" style="zoom:50%;" />
+<img src="Preview/NLP-1.png" alt="NLP-1" style="zoom: 33%;" />
 
-<img src="Preview/NLP-2.png" alt="NLP-2" style="zoom:50%;" />
+<img src="Preview/NLP-2.png" alt="NLP-2" style="zoom: 33%;" />
 
-<img src="Preview/NLP-3.png" alt="NLP-3" style="zoom:50%;" />
+<img src="Preview/NLP-3.png" alt="NLP-3" style="zoom: 33%;" />
 
 
 
@@ -30,7 +30,7 @@
 
 
 
-<img src="Preview/AE-VAE-CVAE-1.jpg" style="zoom: 50%;" />
+<img src="Preview/AE-VAE-CVAE-1.jpg" style="zoom: 33%;" />
 
 
 
