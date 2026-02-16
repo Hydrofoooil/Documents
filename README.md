@@ -2,15 +2,29 @@
 
 [cs231n](./cs231n) 斯坦福cs231n的讲义，附有手写笔记, 是很好的deep learning in CV的入门，内容主要围绕neural networks for image classification tasks。
 
+<img src="Preview/cs231n.png" style="zoom:50%;" />
+
 ---
 
 [NLP](./NLP) NLP入门的手写笔记，主要参考了斯坦福cs224n的前半部分，主要包含word2vec, RNN, LSTM, self-attention, transformer, 比较偏向于模型的运作原理，需要一些神经网络的前置知识 (参见 [cs231n_notes](./cs231n_notes))。
 
 同时附有一个经典transformer的代码实现demo，展示了一个transformer如何构建和训练的。代码有逐行的注释来说明部分语法和pytorch的调用原理
 
+<img src="Preview/AE-VAE-CVAE-1.jpg" style="zoom:50%;" />
+
+<img src="Preview/NLP-1.png" alt="NLP-1" style="zoom:50%;" />
+
+<img src="Preview/NLP-2.png" alt="NLP-2" style="zoom:50%;" />
+
+<img src="Preview/NLP-3.png" alt="NLP-3" style="zoom:50%;" />
+
 ---
 
 [GenerationModel](./GenerationModel) 关于生成式AI的foundation models的手写笔记 (BERT, VAE, diffusion policy, flow-based, etc，仅入门水平) ，同时附有必需的概率论补充知识。
+
+<img src="Preview/AE-VAE-CVAE-1.jpg" style="zoom:50%;" />
+
+<img src="Preview/AE-VAE-CVAE-2.jpg" alt="AE-VAE-CVAE-2" style="zoom:50%;" />
 
 ---
 
@@ -25,6 +39,6 @@
 
 - markdown语法大全
 - docker使用
-- linux常用命令合集
+- linux常用命令合集、tmux与conda管理
 - ros基础使用
 - linux下与stm32的通讯与烧录
