@@ -699,7 +699,12 @@ On-policy vs off-policy:
 
 Evaluating action value by Q-learning: 
 $$q _ { t + 1 } \left( s _ { t } , a _ { t } \right) = q _ { t } \left( s _ { t } , a _ { t } \right) - \alpha _ { t } \left( s _ { t } , a _ { t } \right) \Big[ q _ { t } \left( s _ { t } , a _ { t } \right) - [ r _ { t + 1 } + \gamma \max _ { a \in \mathcal { A } } q _ { t } \left( s _ { t + 1 } , a \right) ]\Big] ,$$
-$$q _ { t + 1 } ( s , a ) = q _ { t } ( s , a ) , \quad \forall ( s , a ) \neq \left( s _ { t } , a _ { t } \right) ,$$*Pseudocode:* Policy searching by Q-learning **(on-policy version)**
+$$q _ { t + 1 } ( s , a ) = q _ { t } ( s , a ) , \quad \forall ( s , a ) \neq \left( s _ { t } , a _ { t } \right) ,$$
+
+
+
+
+*Pseudocode:* Policy searching by Q-learning **(on-policy version)**
 
 ---
 
@@ -742,7 +747,7 @@ $$q ( s , a ) = \mathbb { E } \left[ R _ { t + 1 } + \gamma \max _ { a } q \left
 ### Algorithm for state value estimation
 
 #### Policy evaluation problem: 
-Let $v_\pi(s)$ and $\hat{v}(s, w)$ be the true state value and a function for approximation. Our goal is to find an optimal $w$ so that $\hat{v}(s, w)$ can best approximate $v_\pi(s)$ for every $s$. To find the optimal $w$, we need two steps:
+Let $v_\pi(s)$ and $\hat{v}(s, w)$ be the true state value and a function for approximation. Our goal is to find an optimal parameter $w$ so that $\hat{v}(s, w)$ can best approximate $v_\pi(s)$ for every $s$. To find the optimal $w$, we need two steps:
 - The first step is to define an objective function.
 - The second step is to derive algorithms optimizing the objective  function.
 
@@ -797,6 +802,7 @@ In particular,
 - Second, **TD learning with function approximation**:
   
   By the spirit of TD learning, $r _ { t + 1 } + \gamma \hat { v } \left( s _ { t + 1 } , w _ { t } \right)$ can be viewed as an approximation of $v_\pi(s_t)$. Then, the algorithm becomes$$w _ { t + 1 } = w _ { t } + \alpha _ { t } \left[ r _ { t + 1 } + \gamma \hat { v } \left( s _ { t + 1 } , w _ { t } \right) - \hat { v } \left( s _ { t } , w _ { t } \right) \right] \nabla _ { w } \hat { v } \left( s _ { t } , w _ { t } \right) $$ 
+
 *Pseudocode:* TD learning with function approximation
 
 <b>Initialization</b>: A function $\hat{v}(s, w)$ that is a differentiable in $w$. Initial parameter $w_0$.  
@@ -839,3 +845,117 @@ Linear function approximation is still powerful in the sense that the **tabular 
 The second approach, which is widely used nowadays, is to use a **neural network** as a nonlinear function approximator.
   
   - The input of the NN is the state, the output is $\hat{v}(s, w)$, and the network parameter is $w$.
+
+### Sarsa with function approximation
+
+So far, we merely considered the problem of state value estimation. That is we hope $\hat{v} \approx v_{\pi}$. To search for optimal policies, we need to estimate action values.
+
+The Sarsa algorithm with value function approximation is
+$$
+w_{t+1} = w_t + \alpha_t \left[ r_{t+1} + \gamma \hat{q}(s_{t+1}, a_{t+1}, w_t) - \hat{q}(s_t, a_t, w_t) \right] \nabla_w \hat{q}(s_t, a_t, w_t)
+$$
+This is the same as the algorithm introduced previously except that $\hat{v}$ is replaced by $\hat{q}$.
+
+To search for optimal policies, we can combine policy evaluation and  policy improvement.
+
+*Pseudocode:* Sarsa with function approximation
+
+---
+<b>Aim</b>: Search a policy that can lead the agent to the target from an initial state-action pair $(s_0, a_0)$.
+<b>For</b> each episode, <b>do</b>
+
+&emsp;&emsp;<b>If</b> the current $s_t$ is not the target state, <b>do</b>
+&emsp;&emsp;&emsp;&emsp;Take action $a_t$  following $\pi_t(s_t)$, generate $r_{t+1}$, $s_{t+1}$, and then take action $a_{t+1}$ following $π_t(s_{t+1})$
+&emsp;&emsp;&emsp;&emsp;**Value update (parameter update):**
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$w_{t+1} = w_t + \alpha_t \left[ r_{t+1} + \gamma \hat{q}(s_{t+1}, a_{t+1}, w_t) - \hat{q}(s_t, a_t, w_t) \right] \nabla_w \hat{q}(s_t, a_t, w_t)$
+&emsp;&emsp;&emsp;&emsp;**Policy update:**
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$\pi_{t+1}(a|s_t) = 1 - \frac{\varepsilon}{|\mathcal{A}(s)|}(|\mathcal{A}(s)|-1) \text{ if } a = \arg\max_{a\in\mathcal{A}(s_t)} \hat{q}(s_t, a, w_{t+1})$
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$\pi_{t+1}(a|s_t) = \frac{\varepsilon}{|\mathcal{A}(s)|} \text{ otherwise}$
+
+---
+
+### Deep Q-learning
+
+Deep Q-learning aims to **minimize the objective function/loss function**:
+$$J ( w ) = \mathbb { E } \left[ \left( R + \gamma \max _ { a \in \mathcal { A } \left( S ^ { \prime } \right) } \hat { q } \left( S ^ { \prime } , a , w \right) - \hat { q } ( S , A , w ) \right) ^ { 2 } \right] $$ where $(S, A, R, S')$ are random variables.
+- This is actually the Bellman optimality error. That is because$$q ( s , a ) = \mathbb { E } \left[ R _ { t + 1 } + \gamma \max _ { a \in \mathcal { A } \left( S _ { t + 1 } \right) } q \left( S _ { t + 1 } , a \right) \mid S _ { t } = s , A _ { t } = a \right] , \quad \forall s , a$$ The value of $R + \gamma \max _ { a \in \mathcal { A } \left( S ^ { \prime } \right) } \hat { q } \left( S ^ { \prime } , a , w \right) - \hat { q } ( S , A , w )$ should be zero in the expectation sense.
+
+We use gradient decsent to minimize the objective function, but it is tricky because in $J(w)$, the parameter $w$ not only appears in $\hat{q}(S, A, w)$ but also in$$R + \gamma \max _ { a \in \mathcal { A } \left( S ^ { \prime } \right) } \hat { q } \left( S ^ { \prime } , a , w \right) \triangleq y$$For the sake of simplicity, we can assume that $w$ in $y$ is fixed (at least for a while) when we calculate the gradient. To do that, we can introduce two networks.
+
+- One is a main network representing $\hat{q}(s, a, w)$
+- The other is a target network $\hat{q}(s, a, w_T)$
+
+The objective function in this case degenerates to$$J = \mathbb { E } \left[ \left( R + \gamma \max _ { a \in \mathcal { A } \left( S ^ { \prime } \right) } \color{red}{\hat { q } \left( S ^ { \prime } , a , w _ { T } \right)} - \color{#0AF}{\hat { q } ( S , A , w )} \right) ^ { 2 } \right] $$ where $w_T$ is the target network parameter.
+
+When $w_T$ is fixed, the gradient of $J$ can be easily obtained as$$\nabla _ { w } J = \mathbb { E } \left[ \left( R + \gamma \max _ { a \in \mathcal { A } \left( S ^ { \prime } \right) } \color{red}{\hat { q } \left( S ^ { \prime } , a , w _ { T } \right)} - \color{#0AF}{\hat { q } ( S , A , w )} \right) \color{#0AF}{\nabla _ { w } \hat { q } ( S , A , w )} \right] $$The basic idea of deep Q-learning is to use the gradient-descent algorithm to minimize the objective function. **Such an optimization process evolves two important techniques that deserve special attention.**
+
+#### Main network & Target network
+
+Let $w$ and $w_T$ denote the parameters of the main and target networks, respectively. They are set to be the same initially. 
+
+In every iteration, we draw a mini-batch of samples $\{(s, a, r, s')\}$ from the replay buffer (will be explained in <span style="color:#e5b567;">Experience replay</span>). The inputs of the networks include state $s$ and action $a$. The target output is$$y_T \triangleq r + \gamma \max _ { a \in \mathcal { A } \left( S ^ { \prime } \right) } \color{red}{\hat { q } \left( S ^ { \prime } , a , w_T \right)}$$Then, we directly minimize the TD error or called loss function $(y_T - \hat{q}(s,a,w))^2$ over the mini-batch $\{(s,a,y_T)\}$.
+#### Experience replay
+
+After we have collected some experience samples, we **do NOT use these samples** **in the order they were collected**. Instead, we store them in a set, called replay buffer $\mathcal{B} \triangleq \{(s,a,r,s')\}$.
+
+Every time we train the neural network, we can draw a mini-batch of random samples from the replay buffer, so that **we can avoid the batch being composed of correlated data in the same episode and instead using i.i.d. data** for each batch during training, which is beneficial for the networks to learn properly.
+
+The draw of samples is called **experience replay**, and it should follow a uniform distribution (in order to sample i.i.d. data mentioned above).
+
+> To be specific, let's review the objective function:$$J = \mathbb { E } \left[ \left( R + \gamma \max _ { a \in \mathcal { A } \left( S ^ { \prime } \right) } \hat { q } \left( S ^ { \prime } , a , w _ { T } \right) - \hat { q } ( S , A , w ) \right) ^ { 2 } \right] $$
+> -  $(S,A) \sim d$: $(S, A)$ is an index and treated as a single random variable
+> - $R \sim p(R|S, A), \ \ \ S' \sim (S'|S,A)$: $R$ and $S$ are determined by the system model.
+> - The distribution of the state-action pair $(S, A)$ is assumed **to be uniform**.
+> 
+> However, the samples are not uniformly collected because they are generated consequently by certain policies. **To break the correlation between consequent samples**, we can use the experience replay technique by **uniformly drawing samples from the replay buffer**.
+
+
+
+*Pseudocode:* Deep Q-learning (off-policy version)
+
+---
+
+<b>Aim</b>: Learn an optimal target network to approximate the optimal action values from the experience samples generated by a behavior policy $π_b$.
+
+Store the experience samples generated by $π_b$ in a replay buffer $\mathcal{B} = \{(s, a, r, s')\}$
+&emsp;&emsp;<b>For</b> each iteration, <b>do</b>
+&emsp;&emsp;&emsp;&emsp;Uniformly draw a mini-batch of samples from $\mathcal{B}$
+&emsp;&emsp;&emsp;&emsp;<b>For</b> each sample $(s, a, r, s')$, calculate the target value as $y_T \triangleq r + \gamma \max _ { a \in \mathcal { A } \left( S ^ { \prime } \right) } \hat { q } \left( S ^ { \prime } , a , w_T \right)$, where $w_T$ is the parameter of the target network
+&emsp;&emsp;&emsp;&emsp;Update the main network to minimize $(y_T - \hat{q}(s,a,w))^2$ using the mini-batch $\{(s,a,y_T)\}$
+&emsp;&emsp;Set $w_T = w$ every $C$ iterations
+
+---
+
+## <span style="color:#e5b567;">Policy Gradient Methods</span>
+
+Previously, policies have mostly been represented by tables, where each entry of the table is indexed by a state and an action, and we can directly access or change a value in the table.
+
+Now, policies can be represented by parameterized functions (e.g. a neural network):$$\pi(a|s,\theta)$$
+where $\theta \in \mathbb{R}^m$ is a parameter vector.
+
+**Differences between tabular and function representations:**
+ - **First, how to define optimal policies?**
+   
+   When represented as a table, a policy $\pi$ is optimal if it can maximize every state value.
+   
+   When represented by a function, a policy $\pi$ is optimal if it can  maximize **certain scalar metrics** (or objective functions) $J(\theta)$.
+   
+- **Second, how to access the probability of an action?**
+  
+  In the tabular case, the probability of taking $a$ at $s$ can be directly accessed by looking up the tabular policy.
+  
+  In the case of function representation, we need to calculate the value of $\pi(a|s, \theta)$ given the function structure and the parameter.
+
+- **Third, how to update policies?**
+  
+  When represented by a table, a policy $\pi$ can be updated by directly changing the entries in the table.
+  
+  When represented by a parameterized function, a policy $\pi$ cannot be  updated in this way anymore. Instead, it can only be updated by  optimizing the parameter $\theta$: $$\theta _ { t + 1 } = \theta _ { t } + \alpha \nabla _ { \theta } J \left( \theta _ { t } \right)$$
+### Metrics to define optimal policies
+
+
+
+### Gradients of the metrics
+
+### Gradient-ascent algorithm (REINFORCE)
+

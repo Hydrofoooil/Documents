@@ -368,3 +368,6 @@ target_label = full_sentence[1:]
 **引申一个关于bert问题，bert的mask为何不学习transformer在attention处进行屏蔽score的技巧？**
 
 - BERT和transformer的目标不一致，bert是语言的预训练模型，需要充分考虑上下文的关系，而transformer主要考虑句子中第i个元素与前i-1个元素的关系。
+
+
+
