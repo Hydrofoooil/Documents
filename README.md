@@ -2,9 +2,12 @@
 
 [cs231n](./cs231n) 斯坦福cs231n的讲义，附有手写笔记, 是很好的deep learning in CV的入门，内容主要围绕neural networks for image classification tasks。
 
-
-
-<img src="Preview/cs231n.png" style="zoom: 33%;" />
+<table>
+  <tr>
+    <td><img src="Preview/cs231n-2.png" width="300"></td>
+    <td><img src="Preview/cs231n.png" width="300"></td>
+  </tr>
+</table>
 
 
 
@@ -14,13 +17,13 @@
 
 同时附有一个经典transformer的代码实现demo，展示了一个transformer如何构建和训练的。代码有逐行的注释来说明部分语法和pytorch的调用原理
 
-
-
-<img src="Preview/NLP-1.png" alt="NLP-1" style="zoom: 33%;" />
-
-<img src="Preview/NLP-2.png" alt="NLP-2" style="zoom: 33%;" />
-
-<img src="Preview/NLP-3.png" alt="NLP-3" style="zoom: 33%;" />
+<table>
+  <tr>
+    <td><img src="Preview/NLP-1.png" width="300"></td>
+    <td><img src="Preview/NLP-2.png" width="300"></td>
+    <td><img src="Preview/NLP-3.png" width="300"></td>
+  </tr>
+</table>
 
 
 
@@ -28,9 +31,12 @@
 
 [GenerationModel](./GenerationModel) 关于生成式AI的foundation models的手写笔记 (BERT, VAE, diffusion policy, flow-based, etc，仅入门水平) ，同时附有必需的概率论补充知识。
 
-
-
-<img src="Preview/AE-VAE-CVAE-1.jpg" style="zoom: 33%;" />
+<table>
+  <tr>
+    <td><img src="Preview/AE-VAE-CVAE-1.jpg" width="300"></td>
+    <td><img src="Preview/AE-VAE-CVAE-2.jpg" width="300"></td>
+  </tr>
+</table>
 
 
 
