@@ -2,7 +2,7 @@
 
 ### [cs231n](./cs231n) 
 
-斯坦福cs231n的讲义，附有手写笔记, 是很好的deep learning in CV的入门，内容主要围绕neural networks for image classification tasks。
+斯坦福cs231n的讲义，附有手写笔记, 是很好的deep learning in CV (but not just CV)的入门，内容主要围绕neural networks for image classification tasks。
 
 <table>
   <tr>
@@ -51,10 +51,24 @@ NLP入门的手写笔记，主要参考了斯坦福cs224n的前半部分，主�
 
 ### [MathFoundationRL](./MathFoundationRL)
 
-（待完工）西湖大学《强化学习的数学原理》课程笔记，将整个课程精简成一份讲义，适合：
+西湖大学《强化学习的数学原理》课程笔记，将整个课程精简成一份讲义，适合：
 
 - 没充足时间把整个课看下来的人
 - 需要快速回顾、查找对应知识的人
+
+<table>
+  <tr>
+    <td><img src="Preview/MathFoundationRL3.png" width="400"></td>
+    <td><img src="Preview/MathFoundationRL4.png" width="400"></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td><img src="Preview/MathFoundationRL5.png" width="400"></td>
+    <td><img src="Preview/MathFoundationRL6.png" width="400"></td>
+  </tr>
+</table>
 
 ---
 

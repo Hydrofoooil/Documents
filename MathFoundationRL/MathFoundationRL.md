@@ -100,7 +100,7 @@ where
 
 $$v _ { \pi } = \left[ v _ { \pi } \left( s _ { 1 } \right) , \ldots , v _ { \pi } \left( s _ { n } \right) \right] ^ { T } \in \mathbb { R } ^ { n }$$ 
 $$r _ { \pi } = \left[ r _ { \pi } \left( s _ { 1 } \right) , \ldots , r _ { \pi } \left( s _ { n } \right) \right] ^ { T } \in \mathbb { R } ^ { n }$$
-    $P _ { \pi } \in \mathbb { R } ^ { n \times n }$, where $\left[ P _ { \pi } \right] _ { i j } = p _ { \pi } \left( s _ { j } \mid s _ { i } \right)$ is the *state transition matrix*
+$P _ { \pi } \in \mathbb { R } ^ { n \times n }$, where $\left[ P _ { \pi } \right] _ { i j } = p _ { \pi } \left( s _ { j } \mid s _ { i } \right)$ is the *state transition matrix*
 
 example: 
 $$
@@ -266,8 +266,6 @@ $$
 
 <b>Aim:</b> Search for the optimal state value and an optimal policy.
 
----
-
 <b>While</b> $v_k$ has not converged, <b>for</b> the $k$th iteration $(k = 0, 1, 2, . . . )$, <b>do</b>
 
 ​&emsp;&emsp;*Policy evaluation:*
@@ -312,7 +310,9 @@ $$
 
 The case of $j_{truncate} = 1$ is *Value Iteration Algorithm*, and the case of $j_{truncate} = \infty$ is *Policy Iteration Algorithm*.
 
+<div align="center">
 <img src="fig1.png" style="zoom: 30%;" />
+</div>
 
 ## <span style="color:#e5b567;">MC: Monte Carlo Learning</span>
 
@@ -322,12 +322,13 @@ The case of $j_{truncate} = 1$ is *Value Iteration Algorithm*, and the case of $
 
 > Many model-based and model-free RL algorithms fall into this framework.
 
+---
+
+
 *Pseudocode:*
 
 <b>Initialization: </b>Initial guess $\pi_0$.
 <b>Aim:</b> Search for an optimal policy.
-
----
 
 <b>For</b> the $k$th iteration $(k = 0, 1, 2, . . . )$, <b>do</b>
 
@@ -389,13 +390,14 @@ When to update the policy:
 
 ### MC Exploring Starts
 
+---
+
+
 *Pseudocode:*
 
 <b>Initialization: </b> Initial policy $\pi_0(a|s)$ and initial value $q(s,a)$ for all $(s,a)$. $Returns(s,a) = [ \ ]$ for all $(s,a)$.
 
 <b>Aim:</b> Search for an optimal policy.
-
----
 
 <b>For</b> each episode, <b>do</b>
 
@@ -432,13 +434,14 @@ In theory, only if every action value for every state is well explored, can we s
 > - Deterministic policy: e.g. greedy policy
 > - Stochastic policy: e.g. soft policy
 
+---
+
+
 *Pseudocode:*
 
 <b>Initialization: </b> Initial policy $\pi_0(a|s)$ and initial value $q(s,a)$ for all $(s,a)$. $Returns(s,a) = [ \ ]$ for all $(s,a)$. $\varepsilon \in (0,1]$.
 
 <b>Aim:</b> Search for the optimal state value and an optimal policy.
-
----
 
 <b>For</b> each episode, <b>do</b>
 
@@ -502,20 +505,15 @@ where
 The function $g(w)$ is viewed as a black box, for which only the input sequence $\{w_k\}$ and output sequence (noisy) $\{\tilde { g } ( w _ { k } , \eta _ { k } ) \}$ are available. So this algorithm relies on data instead of model.
 
 
-
-<b>Robbins-Monro Theorem</b>
-
----
-
+><b>Robbins-Monro Theorem</b>
 In the Robbins-Monro algorithm, if
+>1.  $0 < c _ { 1 } \leq \nabla _ { w } g ( w ) \leq c _ { 2 }$ for all $w$; 
+>2.  $\sum _ { k = 1 } ^ { \infty } a _ { k } = \infty$ and $\sum _ { k = 1 } ^ { \infty } a _ { k } ^ { 2 } < \infty$; 
+>3.  $\mathbb { E } \left[ \eta _ { k } | \mathcal { H } _ { k } \right] = 0$ and $\mathbb { E } \left[ \eta _ { k } ^ { 2 } \mid \mathcal { H } _ { k } \right] < \infty ;$ 
+>where $$\mathcal { H } _ { k } = \left\{ w _ { k } , w _ { k - 1 } , \ldots \right\},$$
+>
+then $w_k$  converges w.p.1 to the root $w^*$ satisfying $g(w^*) = 0$.
 
-1.  $0 < c _ { 1 } \leq \nabla _ { w } g ( w ) \leq c _ { 2 }$ for all $w$; 
-2.  $\sum _ { k = 1 } ^ { \infty } a _ { k } = \infty$ and $\sum _ { k = 1 } ^ { \infty } a _ { k } ^ { 2 } < \infty$; 
-3.  $\mathbb { E } \left[ \eta _ { k } \mid \mathcal { H } _ { k } \right] = 0$ and $\mathbb { E } \left[ \eta _ { k } ^ { 2 } \mid \mathcal { H } _ { k } \right] < \infty ;$ 
-
-where $$\mathcal { H } _ { k } = \left\{ w _ { k } , w _ { k - 1 } , \ldots \right\},$$then $w_k$  converges w.p.1 to the root $w^*$ satisfying $g(w^*) = 0$.
-
----
 
 Explanations of the three conditions:
 
@@ -556,9 +554,9 @@ $\cal{I}_k$ is a subset of $\{1, . . . , n\}$ with the size $|\cal{I}_k | = m$. 
 $$
 w _ { k + 1 } = w _ { k } - \alpha _ { k } \nabla _ { w } f ( w _ { k } , x _ { k } ). \quad\quad (SGD)
 $$
-
+<div align="center">
 <img src="fig2.png" style="zoom: 40%;" />
-
+</div>
 
 
 ## <span style="color:#e5b567;">TD: Temporal Difference Learning</span>
@@ -625,9 +623,11 @@ This is another expression of the Bellman equation expressed in terms of action 
 
 Since the ultimate goal of RL is to find optimal policies, we combine Sarsa with a policy improvement step.  The combined algorithm is also called Sarsa.
 
+---
+
+
 *Pseudocode:*
 
----
 <b>For</b> each episode, <b>do</b>
 
 &emsp;&emsp;If the current $s_t$ is not the target state, do
@@ -641,15 +641,16 @@ Since the ultimate goal of RL is to find optimal policies, we combine Sarsa with
 
 ---
 
-<img src="fig3.png" style="zoom: 40%;" />
-
+<div align="center">
+<img src="fig3.png" style="zoom: 20%;" />
+</div>
 ### Expected Sarsa
 
 A variant of Sarsa is the Expected Sarsa algorithm:
 
 $$q _ { t + 1 } \left( s _ { t } , a _ { t } \right) = q _ { t } \left( s _ { t } , a _ { t } \right) - \alpha _ { t } \left( s _ { t } , a _ { t } \right) \left[ q _ { t } \left( s _ { t } , a _ { t } \right) - \left( r _ { t + 1 } + \gamma \mathbb { E } \left[ q _ { t } \left( s _ { t + 1 } , A \right) \right] \right) \right] ,$$
 $$q _ { t + 1 } ( s , a ) = q _ { t } ( s , a ) , \quad \forall ( s , a ) \neq \left( s _ { t } , a _ { t } \right) ,$$ 
-where$$𝔼\left[q_{t}\left(s_{t + 1},A\right)\right] = \sum _{a}\pi _{t}\left(a \mid s_{t + 1}\right)q_{t}\left(s_{t + 1},a\right) \doteq v_{t}\left(s_{t + 1}\right)$$ 
+where$$𝔼\left[q_{t}\left(s_{t + 1},A\right)\right] = \sum _{a}\pi _{t}\left(a | s_{t + 1}\right)q_{t}\left(s_{t + 1},a\right) \doteq v_{t}\left(s_{t + 1}\right)$$ 
 **Compared to Sarsa:**
 
 - The *TD target* is changed into expectation form.
@@ -702,11 +703,11 @@ $$q _ { t + 1 } \left( s _ { t } , a _ { t } \right) = q _ { t } \left( s _ { t 
 $$q _ { t + 1 } ( s , a ) = q _ { t } ( s , a ) , \quad \forall ( s , a ) \neq \left( s _ { t } , a _ { t } \right) ,$$
 
 
+---
 
 
 *Pseudocode:* Policy searching by Q-learning **(on-policy version)**
 
----
 
 <b>For</b> each episode, <b>do</b>
 &emsp;&emsp;<b>If</b> the current st is not the target state, <b>do</b>
@@ -720,8 +721,6 @@ $$q _ { t + 1 } ( s , a ) = q _ { t } ( s , a ) , \quad \forall ( s , a ) \neq \
 ---
 
 *Pseudocode:* Policy searching by Q-learning **(off-policy version)**
-
----
 
 <b>For</b> each episode $\left\{ s _ { 0 } , a _ { 0 } , r _ { 1 } , s _ { 1 } , a _ { 1 } , r _ { 2 } , \ldots \right\}$ generated by $\pi_b$, <b>do</b>
 
@@ -802,6 +801,7 @@ In particular,
 - Second, **TD learning with function approximation**:
   
   By the spirit of TD learning, $r _ { t + 1 } + \gamma \hat { v } \left( s _ { t + 1 } , w _ { t } \right)$ can be viewed as an approximation of $v_\pi(s_t)$. Then, the algorithm becomes$$w _ { t + 1 } = w _ { t } + \alpha _ { t } \left[ r _ { t + 1 } + \gamma \hat { v } \left( s _ { t + 1 } , w _ { t } \right) - \hat { v } \left( s _ { t } , w _ { t } \right) \right] \nabla _ { w } \hat { v } \left( s _ { t } , w _ { t } \right) $$ 
+---
 
 *Pseudocode:* TD learning with function approximation
 
@@ -809,7 +809,6 @@ In particular,
 
 <b>Aim</b>: Approximate the true state values of a given policy $\pi$.
 
----
 <b>For</b> each episode generated following the policy $\pi$, <b>do</b>
 &emsp;&emsp;<b>For</b> each step $\left( s _ { t } , r _ { t + 1 } , s _ { t + 1 } \right)$, <b>do</b>
 &emsp;&emsp;&emsp;&emsp;In the general case,
@@ -858,10 +857,14 @@ This is the same as the algorithm introduced previously except that $\hat{v}$ is
 
 To search for optimal policies, we can combine policy evaluation and  policy improvement.
 
+---
+
+
 *Pseudocode:* Sarsa with function approximation
 
----
 <b>Aim</b>: Search a policy that can lead the agent to the target from an initial state-action pair $(s_0, a_0)$.
+
+
 <b>For</b> each episode, <b>do</b>
 
 &emsp;&emsp;<b>If</b> the current $s_t$ is not the target state, <b>do</b>
@@ -885,9 +888,9 @@ We use gradient decsent to minimize the objective function, but it is tricky bec
 - One is a main network representing $\hat{q}(s, a, w)$
 - The other is a target network $\hat{q}(s, a, w_T)$
 
-The objective function in this case degenerates to$$J = \mathbb { E } \left[ \left( R + \gamma \max _ { a \in \mathcal { A } \left( S ^ { \prime } \right) } \color{red}{\hat { q } \left( S ^ { \prime } , a , w _ { T } \right)} - \color{#0AF}{\hat { q } ( S , A , w )} \right) ^ { 2 } \right] $$ where $w_T$ is the target network parameter.
+The objective function in this case degenerates to$$J = \mathbb { E } \left[ \left( R + \gamma \max _ { a \in \mathcal { A } \left( S ^ { \prime } \right) } {\color{red}{\hat { q } \left( S ^ { \prime } , a , w _ { T } \right)}} - {\color{#0AF}{\hat { q } ( S , A , w )}} \right) ^ { 2 } \right] $$ where $w_T$ is the target network parameter.
 
-When $w_T$ is fixed, the gradient of $J$ can be easily obtained as$$\nabla _ { w } J = \mathbb { E } \left[ \left( R + \gamma \max _ { a \in \mathcal { A } \left( S ^ { \prime } \right) } \color{red}{\hat { q } \left( S ^ { \prime } , a , w _ { T } \right)} - \color{#0AF}{\hat { q } ( S , A , w )} \right) \color{#0AF}{\nabla _ { w } \hat { q } ( S , A , w )} \right] $$The basic idea of deep Q-learning is to use the gradient-descent algorithm to minimize the objective function. **Such an optimization process evolves two important techniques that deserve special attention.**
+When $w_T$ is fixed, the gradient of $J$ can be easily obtained as$$\nabla _ { w } J = \mathbb { E } \left[ \left( R + \gamma \max _ { a \in \mathcal { A } \left( S ^ { \prime } \right) } {\color{red}{\hat { q } \left( S ^ { \prime } , a , w _ { T } \right)}} - {\color{#0AF}{\hat { q } ( S , A , w )}} \right) {\color{#0AF}{\nabla _ { w } \hat { q } ( S , A , w )}} \right] $$The basic idea of deep Q-learning is to use the gradient-descent algorithm to minimize the objective function. **Such an optimization process evolves two important techniques that deserve special attention.**
 
 #### Main network & Target network
 
@@ -909,11 +912,10 @@ The draw of samples is called **experience replay**, and it should follow a unif
 > 
 > However, the samples are not uniformly collected because they are generated consequently by certain policies. **To break the correlation between consequent samples**, we can use the experience replay technique by **uniformly drawing samples from the replay buffer**.
 
+---
 
 
 *Pseudocode:* Deep Q-learning (off-policy version)
-
----
 
 <b>Aim</b>: Learn an optimal target network to approximate the optimal action values from the experience samples generated by a behavior policy $π_b$.
 
@@ -924,7 +926,6 @@ Store the experience samples generated by $π_b$ in a replay buffer $\mathcal{B}
 &emsp;&emsp;&emsp;&emsp;Update the main network to minimize $(y_T - \hat{q}(s,a,w))^2$ using the mini-batch $\{(s,a,y_T)\}$
 &emsp;&emsp;Set $w_T = w$ every $C$ iterations
 
----
 
 ## <span style="color:#e5b567;">Policy Gradient Methods</span>
 
@@ -985,7 +986,7 @@ In particular, the metric is$$\bar { r } _ { \pi } \triangleq \sum _ { s \in \ma
 - As its name suggests, $\bar { r } _ { \pi }$ is simply a weighted average of the one-step immediate rewards.
 
 An important property is that$$\begin{align}
-\lim _ { n \rightarrow \infty } \frac { 1 } { n } \mathbb { E } \left[ \sum _ { k = 1 } ^ { n } R _ { t + k } \mid S _ { t } = s _ { 0 } \right] &= \lim _ { n \rightarrow \infty } \frac { 1 } { n } \mathbb { E } \left[ \sum _ { k = 1 } ^ { n } R _ { t + k } \right]\\
+\lim _ { n \rightarrow \infty } \frac { 1 } { n } \mathbb { E } \left[ \sum _ { k = 1 } ^ { n } R _ { t + k } | S _ { t } = s _ { 0 } \right] &= \lim _ { n \rightarrow \infty } \frac { 1 } { n } \mathbb { E } \left[ \sum _ { k = 1 } ^ { n } R _ { t + k } \right]\\
 &= \sum _ { s } d _ { \pi } ( s ) r _ { \pi } ( s )\\
 &= \bar { r } _ { \pi }
 \end{align}
@@ -997,17 +998,17 @@ $$Note that the LHS is exactly the average single-step reward $(R_{t+1},R_{t+2},
 >- However, the two metrics are equivalent to each other. In the discounted case where $\gamma < 1$, it holds that$$\bar { r } _ { \pi }=(1-\gamma)\bar { v } _ { \pi }$$
 ### Gradients of the metrics
 
-Summary of the results about the gradients:$$\nabla _ { \theta } J ( \theta ) = \sum _ { s \in \mathcal { S } } \eta ( s ) \sum _ { a \in \mathcal { A } } \nabla _ { \theta } \pi ( a \mid s , \theta ) q _ { \pi } ( s , a )$$where
+Summary of the results about the gradients:$$\nabla _ { \theta } J ( \theta ) = \sum _ { s \in \mathcal { S } } \eta ( s ) \sum _ { a \in \mathcal { A } } \nabla _ { \theta } \pi ( a | s , \theta ) q _ { \pi } ( s , a )$$where
 - $J(\theta)$ can be $\bar { v } _ { \pi }$, $\bar { r } _ { \pi }$, or $\bar { v } _ { \pi }^0$
 - "$=$" may denote "strict equality", "approximation", or "proportional to"
 - $\eta$ is a distribution or weight of the states
 
-Some specific results:$$\begin{align}\nabla _ { \theta } \bar { r } _ { \pi } &\simeq \sum _ { s } d _ { \pi } ( s ) \sum _ { a } \nabla _ { \theta } \pi ( a \mid s , \theta ) q _ { \pi } ( s , a ) \\
+Some specific results:$$\begin{align}\nabla _ { \theta } \bar { r } _ { \pi } &\simeq \sum _ { s } d _ { \pi } ( s ) \sum _ { a } \nabla _ { \theta } \pi ( a | s , \theta ) q _ { \pi } ( s , a ) \\
 \nabla _ { \theta } \bar { v } _ { \pi } &= \frac { 1 } { 1 - \gamma } \nabla _ { \theta } \bar { r } _ { \pi }\\
-\nabla _ { \theta } \bar { v } _ { \pi } ^ { 0 } &= \sum _ { s \in \mathcal { S } } \rho _ { \pi } ( s ) \sum _ { a \in \mathcal { A } } \nabla _ { \theta } \pi ( a \mid s , \theta ) q _ { \pi } ( s , a )
+\nabla _ { \theta } \bar { v } _ { \pi } ^ { 0 } &= \sum _ { s \in \mathcal { S } } \rho _ { \pi } ( s ) \sum _ { a \in \mathcal { A } } \nabla _ { \theta } \pi ( a | s , \theta ) q _ { \pi } ( s , a )
 \end{align}$$**A compact and useful form of the gradient:**$$\begin{align}
-\nabla _ { \theta } J ( \theta ) &= \sum _ { s \in \mathcal { S } } \eta ( s ) \sum _ { a \in \mathcal { A } } \nabla _ { \theta } \pi ( a \mid s , \theta ) q _ { \pi } ( s , a )\\
-&= \mathbb { E } \left[ \nabla _ { \theta } \ln \pi ( A \mid S , \theta ) q _ { \pi } ( S , A ) \right] 
+\nabla _ { \theta } J ( \theta ) &= \sum _ { s \in \mathcal { S } } \eta ( s ) \sum _ { a \in \mathcal { A } } \nabla _ { \theta } \pi ( a | s , \theta ) q _ { \pi } ( s , a )\\
+&= \mathbb { E } \left[ \nabla _ { \theta } \ln \pi ( A | S , \theta ) q _ { \pi } ( S , A ) \right] 
 \end{align}
 $$where $S \sim \eta$ and $A \sim \pi(A | S, \theta)$
 Advantage of this form: we can use samples to **approximate the gradient**.
@@ -1021,4 +1022,309 @@ Advantage of this form: we can use samples to **approximate the gradient**.
 
 
 ### Gradient-ascent algorithm (REINFORCE)
+
+Now, we are ready to present the first **policy gradient algorithm** to find optimal policies. The gradient-ascent algorithm maximizing $J(\theta)$ is$$\begin{align}
+\theta _ { t + 1 } &= \theta _ { t } + \alpha \nabla _ { \theta } J ( \theta )\\
+&= \theta _ { t } + \alpha \mathbb { E } \left[ \nabla _ { \theta } \ln \pi \left( A | S , \theta _ { t } \right) q _ { \pi } ( S , A ) \right]
+\end{align}$$
+The true gradient can be replaced by a stochastic one:$$\theta _ { t + 1 } = \theta _ { t } + \alpha \nabla _ { \theta } \ln \pi \left( a _ { t } | s _ { t } , \theta _ { t } \right) q _ { \pi } \left( s _ { t } , a _ { t } \right)$$
+Furthermore, since $q_\pi$ is unknown, it can be approximated:$$\theta _ { t + 1 } = \theta _ { t } + \alpha \nabla _ { \theta } \ln \pi \left( a _ { t } | s _ { t } , \theta _ { t } \right) \color{#0AF}{q _ { t } \left( s _ { t } , a _ { t } \right)}$$
+There are different methods to approximate $q_\pi(s_t, a_t)$, e.g. Monte-Carlo based method, REINFORCE and TD.
+
+**Remark 1: How to do sampling?**
+$$\mathbb{E} _ { S \sim d , A \sim \pi } \left[ \nabla _ { \theta } \ln \pi \left( A | S , \theta _ { t } \right) q _ { \pi } ( S , A ) \right] \longrightarrow \nabla _ { \theta } \ln \pi \left( a | s , \theta _ { t } \right) q _ { \pi } ( s , a )$$
+- How to sample S? $S \sim d$, where the distribution $d$ is a long-run behavior under $\pi$.
+- How to sample A? $A \sim \pi(A|S, \theta)$. Hence, $a_t$ should be sampled following $\pi(\theta_t)$ at $s_t$.
+- Therefore, the policy gradient method is on-policy.
+
+**Remark 2: How to interpret this algorithm?**
+Since$$\nabla _ { \theta } \ln \pi \left( a _ { t } | s _ { t } , \theta _ { t } \right) = \frac { \nabla _ { \theta } \pi \left( a _ { t } | s _ { t } , \theta _ { t } \right) } { \pi \left( a _ { t } | s _ { t } , \theta _ { t } \right) }$$the algorithm can be rewritten as$$\begin{align}
+\theta _ { t + 1 } &= \theta _ { t } + \alpha \nabla _ { \theta } \ln \pi \left( a _ { t } \mid s _ { t } , \theta _ { t } \right) q _ { t } \left( s _ { t } , a _ { t } \right)\\
+&= \theta _ { t } + \alpha \underbrace { \left( {\color{#0AF}{\frac { q _ { t } \left( s _ { t } , a _ { t } \right) } { \pi \left( a _ { t } \mid s _ { t } , \theta _ { t } \right) }}} \right) } _ { \beta _ { t } } \nabla _ { \theta } \pi \left( a _ { t } \mid s _ { t } , \theta _ { t } \right)
+\end{align}$$
+Therefore, we have the important expression of the algorithm:$$\color{#0AF}{\theta _ { t + 1 } = \theta _ { t } + \alpha} \color{red}{\beta _ { t }} \color{#0AF}{\nabla _ { \theta } \pi \left( a _ { t } | s _ { t } , \theta _ { t } \right)}$$ It is a **gradient-ascent algorithm** for maximizing $\pi(a_t|s_t, \theta)$:
+
+**Intuition**: When $\alpha \beta_t$ is sufficiently small
+- If $\beta_t > 0$, the probability of choosing $(s_t, a_t)$ is enhanced **(LR>0 for gradient ascent)**:$$\pi \left( a _ { t } | s _ { t } , \theta _ { t + 1 } \right) > \pi \left( a _ { t } | s _ { t } , \theta _ { t } \right)$$ The greater $\beta_t$ is, the stronger the enhancement is.
+- If $\beta_t > 0$, then $\pi \left( a _ { t } | s _ { t } , \theta _ { t + 1 } \right) < \pi \left( a _ { t } | s _ { t } , \theta _ { t } \right)$
+
+The coefficient $\beta_t$ can well **balance exploration and exploitation**:
+- First, $\beta_t$ is **proportional** to $q_t(s_t, a_t)$.
+  If $q_t(s_t, a_t)$ is great, then $\beta_t$ is great. Therefore, the algorithm intends to enhance actions with greater values.
+- Second, $\beta_t$ is inversely proportional to $\pi(a_t|s_t, \theta_t)$.
+  If $\pi(a_t|s_t, \theta_t)$ is small, then $\beta_t$ is large.
+  Therefore, the algorithm intends to explore actions that have low probabilities.
+
+Recall that$$\theta _ { t + 1 } = \theta _ { t } + \alpha \nabla _ { \theta } \ln \pi \left( a _ { t } | s _ { t } , \theta _ { t } \right) q _ { \pi } \left( s _ { t } , a _ { t } \right)$$is replaced by$$\theta _ { t + 1 } = \theta _ { t } + \alpha \nabla _ { \theta } \ln \pi \left( a _ { t } | s _ { t } , \theta _ { t } \right) \color{#0AF}{q _ { t } \left( s _ { t } , a _ { t } \right)}$$where $q_t(s_t, a_t)$ is an approximation of $q_\pi(s_t, a_t)$.
+
+If $q_\pi(s_t, a_t)$ is approximated by Monte Carlo estimation, the algorithm has a specifics name, **REINFORCE**.
+
+---
+
+
+*Pseudocode:* Policy Gradient by Monte Carlo (REINFORCE)
+
+<b>Initialization:</b> A parameterized function $\pi(a|s, \theta)$, $\gamma \in (0, 1)$, and $\alpha > 0$. 
+
+<b>Aim:</b> Search for an optimal policy maximizing $J(\theta)$.
+
+<b>For</b> the $k$th iteration, <b>do</b>
+&emsp;&emsp;Select $s_0$ and generate an episode following $\pi(\theta_k)$. Suppose the episode is $\{s_0, a_0, r_1, \dots , s_{T −1}, a_{T −1}, r_T \}$.
+
+&emsp;&emsp;<b>For</b> $t = 0, 1, \dots , T − 1$, <b>do</b>
+
+&emsp;&emsp;&emsp;&emsp;**Value update:** $q _ { t } \left( s _ { t } , a _ { t } \right) = \sum _ { k = t + 1 } ^ { T } \gamma ^ { k - t - 1 } r _ { k }$
+
+&emsp;&emsp;&emsp;&emsp;**Policy update:** $\theta _ { t + 1 } = \theta _ { t } + \alpha \nabla _ { \theta } \ln \pi \left( a _ { t } \mid s _ { t } , \theta _ { t } \right) q _ { t } \left( s _ { t } , a _ { t } \right)$
+
+&emsp;&emsp;$\theta_k=\theta_T$
+
+
+## <span style="color:#e5b567;">Actor-Critic Methods</span>
+
+### The simplest actor-critic (QAC)
+
+Revisit the stochastic gradient-ascent algorithm maximizing $J(\theta)$:$$\theta _ { t + 1 } = \theta _ { t } + \alpha \nabla _ { \theta } \ln \pi \left( a _ { t } | s _ { t } , \theta _ { t } \right) \color{#0AF}{q _ { t } \left( s _ { t } , a _ { t } \right)}$$We can see “actor” and “critic” from this algorithm:
+- **This algorithm** corresponds to actor.
+- **The algorithm estimating $q_t(s, a)$** corresponds to critic.
+
+How to get $q_t(s_t, a_t)$?
+
+So far, we have studied two ways to estimate action values:
+- **Monte Carlo learning:** If MC is used, the corresponding algorithm is  called **REINFORCE** or **Monte Carlo policy gradient**.
+- **Temporal-difference learning:** If TD is used, such kind of algorithms are usually called **actor-critic**.
+
+---
+
+
+*Pseudocode:* The simplest actor-critic algorithm (QAC)
+<b>Aim:</b>  Search for an optimal policy by maximizing $J(\theta)$.
+
+At time step t in each episode, <b>do</b>
+
+&emsp;&emsp;Generate $a_t$ following $\pi(a|s_t, \theta_t)$, observe $r_{t+1}$, $s_{t+1}$, and then generate $a_{t+1}$ following $\pi(a|s_{t+1}, \theta_t)$.
+
+&emsp;&emsp;**Critic (value update):**
+
+&emsp;&emsp;&emsp;&emsp;$w_{t + 1} = w_{t} + \alpha _{w}\left[r_{t + 1} + \gamma ⁢⁢⁢q\left(s_{t + 1},a_{t + 1},w_{t}\right) - q\left(s_{t},a_{t},w_{t}\right)\right] \nabla_{w}q\left(s_{t},a_{t},w_{t}\right)$
+
+&emsp;&emsp;**Actor (policy update):**
+
+&emsp;&emsp;&emsp;&emsp; $\theta _{t + 1} = \theta _{t} + \alpha _{\theta }\nabla_{\theta }\ln \pi \left(a_{t} | s_{t},\theta _{t}\right)q\left(s_{t},a_{t},w_{t + 1}\right)$ 
+
+---
+
+>Remarks:
+>- The critic corresponds to “SARSA+value function approximation”.
+>- The actor corresponds to the policy update algorithm.
+>- The algorithm is **on-policy**, and since the policy is stochastic, no need to use techniques like ε-greedy.
+>- This particular actor-citric algorithm is sometimes referred to as **Q  Actor-Critic (QAC)**.
+
+### Advantage actor-critic (A2C)
+
+The core idea is to **introduce a baseline to reduce variance**.
+
+Property: the policy gradient is **invariant to an additional baseline**:$$\begin{align}
+\nabla _ { \theta } J ( \theta ) &= \mathbb { E } _ { S \sim \eta , A \sim \pi } \left[ \nabla _ { \theta } \ln \pi \left( A \mid S , \theta _ { t } \right) q _ { \pi } ( S , A ) \right]\\
+&= \mathbb { E } _ { S \sim \eta , A \sim \pi } \left[ \nabla _ { \theta } \ln \pi \left( A \mid S , \theta _ { t } \right) \left( q _ { \pi } ( S , A ) - {\color{#0AF}{b ( S )}} \right) \right]
+\end{align}$$Here, the additional baseline $b(S)$ is a scalar function of $S$. The property can be prooved mathematically.
+
+Why is the baseline useful?
+
+The gradient is $\nabla_\theta J(\theta) = \mathbb{E}[X]$ where$$X ( S , A ) \triangleq \nabla _ { \theta } \ln \pi \left( A | S , \theta _ { t } \right) \left[ q _ { \pi } ( S , A ) - b ( S ) \right]$$We have  
+- $\mathbb{E}[X]$ is invariant to $b(S)$.
+- $\text{var} (X)$ is NOT invariant to $b(S)$, because $\text{tr}[\text{var}(X)] = \mathbb{E}[X^T X] - \bar{x}^T \bar{x}$ and$$\begin{aligned} \mathbb{E}[X^T X] &= \mathbb{E} \left[ (\nabla_{\theta} \ln \pi)^T (\nabla_{\theta} \ln \pi) (q_{\pi}(S, A) - b(S))^2 \right] \\ &= \mathbb{E} \left[ |\nabla_{\theta} \ln \pi\|^2 (q_{\pi}(S, A) - b(S))^2 \right] \end{aligned}$$Imagine $b$ is huge (e.g., 1 millon)
+
+**Our goal:** Select an optimal baseline $b$ to minimize $\text{var}(X)$
+
+**Benefit:** when we use a random sample to approximate $\mathbb{E}[X]$, the estimation variance would also be small.
+
+In the algorithms of REINFORCE and QAC,there is no baseline. **Or, we can say $b = 0$**, which is not guaranteed to be a good baseline.
+
+The optimal baseline that can minimize $\text{var}(X)$ is, for any $s \in S$,$$b^*(s) = \frac{\mathbb{E}_{A \sim \pi} [\|\nabla_{\theta} \ln \pi(A|s, \theta_t)\|^2 q_{\pi}(s, A)]}{\mathbb{E}_{A \sim \pi} [\|\nabla_{\theta} \ln \pi(A|s, \theta_t)\|^2]}$$Although this baseline is optimal, it is complex. We can remove the weight $‖\nabla_\theta \ln \pi(A|s, \theta_t)‖^2$ and select the suboptimal baseline:$$b(s) = \mathbb{E}_{A \sim \pi}[q_{\pi}(s, A)] = v_{\pi}(s)$$which is the state value of $s$!
+
+Therefore, when $b(s) = v_\pi(s)$, the gradient-ascent algorithm is
+
+$$\begin{aligned} \theta_{t+1} &= \theta_t + \alpha \mathbb{E} \big[ \nabla_{\theta} \ln \pi(A|S,\theta_t) \left[{\color{#0AF}{q_{\pi}(S, A) - b(S)}} \right] \big] \\ &= \theta_t + \alpha \mathbb{E} \big[ \nabla_{\theta} \ln \pi(A|S,\theta_t) {\color{#0AF}{\delta_\pi(S,A)}}\big] \end{aligned}$$
+where$$\delta_\pi(S,A) \triangleq q_\pi (S,A)-v_\pi(s)$$is called the **advantage function**.
+
+The stochastic version of this algorithm is$$\begin{aligned}
+\theta_{t+1} & =\theta_{t}+\alpha \nabla_{\theta} \ln \pi\left(a_{t} \mid s_{t}, \theta_{t}\right)\left[q_{t}\left(s_{t}, a_{t}\right)-v_{t}\left(s_{t}\right)\right] \\
+& =\theta_{t}+\alpha \nabla_{\theta} \ln \pi\left(a_{t} \mid s_{t}, \theta_{t}\right) \delta_{t}\left(s_{t}, a_{t}\right)
+\end{aligned}$$Moreover, the algorithm can be re-expressed as
+$$\begin{align}
+\theta_{t+1} &=\theta_{t}+\alpha \nabla_{\theta} \ln \pi\left(a_{t} | s_{t}, \theta_{t}\right) \delta_{t}\left(s_{t}, a_{t}\right) \\
+&=\theta_{t}+\alpha \frac{\nabla_{\theta} \pi\left(a_{t} | s_{t}, \theta_{t}\right)}{\pi\left(a_{t} | s_{t}, \theta_{t}\right)} \delta_{t}\left(s_{t}, a_{t}\right) \\
+&=\theta_{t}+\alpha \underbrace{\left(\frac{\delta_{t}\left(s_{t}, a_{t}\right)}{\pi\left(a_{t} | s_{t}, \theta_{t}\right)}\right)}_{\text {step size}} \nabla_{\theta} \pi\left(a_{t} | s_{t}, \theta_{t}\right)
+\end{align}$$
+The step size is proportional to the **relative value $\delta_t$** rather than the  **absolute value $q_t$**, which is more reasonable. It can still well balance exploration and exploitation.
+
+Furthermore, the advantage function is approximated by the TD error:$$\delta_{t}=q_{t}\left(s_{t}, a_{t}\right)-v_{t}\left(s_{t}\right) \rightarrow r_{t+1}+\gamma v_{t}\left(s_{t+1}\right)-v_{t}\left(s_{t}\right)$$
+- **Benefit:** only need one network to approximate $v_\pi(s)$ rather than two  networks for $q_\pi(s, a)$ and $v_\pi(s)$.
+
+---
+
+
+*Pseudocode:* Advantage actor-critic (A2C) or TD actor-critic
+
+<b>Aim:</b> Search for an optimal policy maximizing $J(\theta)$.
+
+At time step $t$ in each episode, <b>do</b>
+
+&emsp;&emsp;Generate $a_t$ following $\pi(a|s_t, \theta_t)$ and then observe $r_{t+1}$, $s_{t+1}$.
+
+&emsp;&emsp;**TD error (advantage function):**
+
+&emsp;&emsp;&emsp;&emsp;$\delta_{t}=r_{t+1}+\gamma v_{t}\left(s_{t+1}, w_t\right)-v_{t}\left(s_{t}, w_t\right)$
+
+&emsp;&emsp;**Critic (value update):**
+
+&emsp;&emsp;&emsp;&emsp;$w_{t+1}=w_{t}+\alpha_{w} \delta_{t} \nabla_{w} v\left(s_{t}, w_{t}\right)$
+
+&emsp;&emsp;**Actor (policy update):**
+
+&emsp;&emsp;&emsp;&emsp;$\theta_{t+1}=\theta_{t}+\alpha_{\theta} \delta_{t} \nabla_{\theta} \ln \pi\left(a_{t} \mid s_{t}, \theta_{t}\right)$
+
+---
+
+### Off-policy actor-critic
+
+Policy gradient is on-policy, because the gradient is $\nabla_{\theta} J(\theta)=\mathbb{E}_{S \sim \eta, A \sim \pi}[*]$. However, by importance sampling, we can convert it to off-policy.
+
+#### llustrative examples
+
+Consider a random variable $X \in \mathcal{X} = \{+1, −1\}$, the probability distribution of $X$ is $p_0$:$$p_{0}(X=+1)=0.5, \quad p_{0}(X=-1)=0.5$$then the expectation of $X$ is $0$.
+
+**Question: how to estimate $\mathbb{E}[X]$ by using some samples $\{x_i\}$?**
+- **Case 1:** The samples $\{x_i\}$ are **generated according to $p_0$**:$$\bar{x}=\frac{1}{n} \sum_{i=1}^{n} x_{i} \rightarrow \mathbb{E}[X]$$
+- **Case 2:** The samples $\{x_i\}$ are **generated according to another distribution $p_1$**:$$p_{0}(X=+1)=0.8, \quad p_{0}(X=-1)=0.2$$If we use the average of the samples, then without suprising$$\bar{x}=\frac{1}{n} \sum_{i=1}^{n} x_{i} \rightarrow \mathbb{E}_{X \sim p_{1}}[X]=0.6 \neq \mathbb{E}_{X \sim p_{0}}[X]$$
+**Can we use $\{x_i\} \sim p_1$ to estimate $\mathbb{E}_{X \sim p_0} [X]$?** We aim to do that because we may have to estimate $\mathbb{E}_{X \sim \pi} [*]$ where $\pi$ is the *target policy* ($p_0$) based on the samples of a *behavior policy* $\beta$ ($p_1$). 
+
+We can achieve that by using the importance sampling technique.
+
+#### Importance sampling
+
+Note that$${\color{red}{\mathbb{E}_{X \sim p_{0}}[X]}}=\sum_{x} p_{0}(x) x=\sum_{x} {\color{#0AF}{p_{1}(x)}} \underbrace{\frac{p_{0}(x)}{{\color{#0AF}{p_{1}(x)}}}}_{f(x)} x={\color{red}{\mathbb{E}_{X \sim p_{1}}[f(X)]}}$$Thus, we can estimate $\mathbb{E}_{X \sim p_1} [f(X)]$ in order to estimate $\mathbb{E}_{X \sim p_0} [X]$.
+
+How to estimate $\mathbb{E}_{X \sim p_{1}}[f(X)]$? Let$$\bar{f} \triangleq \frac{1}{n} \sum_{i=1}^{n} f\left(x_{i}\right)$$where $x_i \sim p_1$, then, $$\begin{aligned}
+\mathbb{E}_{X \sim p_{1}}[\bar{f}] & =\mathbb{E}_{X \sim p_{1}}[f(X)] \\
+\operatorname{var}_{X \sim p_{1}}[\bar{f}] & =\frac{1}{n} \operatorname{var}_{X \sim p_{1}}[f(X)]
+\end{aligned}$$Therefore, $\bar{f}$ is a good approximation for $\mathbb{E}_{X \sim p_{1}}[f(X)]=\mathbb{E}_{X \sim p_{0}}[X]$:$$\begin{array}{c}
+\bar{x}=\frac{1}{n} \sum_{i=1}^{n} x_{i} \rightarrow \mathbb{E}_{\color{#0AF}{X \sim p_{1}}}[X] \\
+\bar{f}=\frac{1}{n} \sum_{i=1}^{n} \frac{p_{0}\left(x_{i}\right)}{p_{1}\left(x_{i}\right)} x_{i} \rightarrow \mathbb{E}_{\color{#0AF}{X \sim p_{0}}}[X]
+\end{array}$$
+- $\frac{p_{0}\left(x_{i}\right)}{p_{1}\left(x_{i}\right)}$ is called the *importance weight*.
+
+<div align="center">
+<img src="fig4.png" style="zoom: 40%;" />
+</div>
+
+#### Off-policy policy gradient
+
+Like the previous on-policy case, we need to derive the policy gradient in the off-policy case.
+
+Suppose $\beta$ is the behavior policy that generates experience samples. Our aim is to use these samples to update a target policy $\pi$ that can minimize the metric$$J(\theta)=\sum_{s \in \mathcal{S}} d_{\beta}(s) v_{\pi}(s)=\mathbb{E}_{S \sim d_{\beta}}\left[v_{\pi}(S)\right]$$where $d_\beta$ is the stationary distribution under policy $\beta$.
+
+><b>Off-policy policy gradient theorem</b>
+>In the discounted case where $\gamma \in (0, 1)$, the gradient of $J(\theta)$ is$$\nabla_{\theta} J(\theta)=\mathbb{E}_{S \sim \rho, A \sim \beta}\left[\frac{\pi(A | S, \theta)}{\beta(A | S)} \nabla_{\theta} \ln \pi(A | S, \theta) q_{\pi}(S, A)\right]$$where $\beta$ is the behavior policy and $\rho$ is a state distribution.
+
+#### Off-policy actor-critic algorithm
+
+The corresponding stochastic gradient-ascent algorithm is$$\theta_{t+1}=\theta_{t}+\alpha_{\theta} \frac{\pi\left(a_{t} | s_{t}, \theta_{t}\right)}{\beta\left(a_{t} | s_{t}\right)} \nabla_{\theta} \ln \pi\left(a_{t} | s_{t}, \theta_{t}\right)\left(q_{t}\left(s_{t}, a_{t}\right)-v_{t}\left(s_{t}\right)\right)$$Similar to the on-policy case,$$q_{t}\left(s_{t}, a_{t}\right)-v_{t}\left(s_{t}\right) \approx r_{t+1}+\gamma v_{t}\left(s_{t+1}\right)-v_{t}\left(s_{t}\right) \doteq\delta_{t}\left(s_{t}, a_{t}\right)$$Then, the algorithm becomes$$\theta_{t+1}=\theta_{t}+\alpha_{\theta} \frac{\pi\left(a_{t} | s_{t}, \theta_{t}\right)}{\beta\left(a_{t} | s_{t}\right)} \nabla_{\theta} \ln \pi\left(a_{t} | s_{t}, \theta_{t}\right) \delta_{t}\left(s_{t}, a_{t}\right)$$and hence$$\theta_{t+1}=\theta_{t}+\alpha_{\theta}\left(\frac{\delta_{t}\left(s_{t}, a_{t}\right)}{\beta\left(a_{t} | s_{t}\right)}\right) \nabla_{\theta} \pi\left(a_{t} | s_{t}, \theta_{t}\right)$$
+
+---
+
+*Pseudocode:* Off-policy actor-critic based on importance sampling
+
+<b>Initialization:</b> A given behavior policy $\beta(a|s)$. A target policy $\pi(a|s, \theta_0)$ where $\theta_0$ is the initial parameter vector. A value function $v(s, w_0)$ where $w_0$ is the initial parameter vector.
+
+<b>Aim:</b> Search for an optimal policy maximizing $J(\theta)$.
+
+At time step $t$ in each episode, <b>do</b>
+
+&emsp;&emsp;Generate $a_t$ following $\beta(s_t)$ and then observe $r_{t+1}$, $s_{t+1}$.
+
+&emsp;&emsp;**TD error (advantage function):**
+
+&emsp;&emsp;&emsp;&emsp;$\delta_{t}=r_{t+1}+\gamma v_{t}\left(s_{t+1}, w_t\right)-v_{t}\left(s_{t}, w_t\right)$
+
+&emsp;&emsp;**Critic (value update):**
+
+&emsp;&emsp;&emsp;&emsp;$w_{t+1}=w_{t}+\alpha_{w} \frac{\pi\left(a_{t} | s_{t}, \theta_{t}\right)}{\beta\left(a_{t} | s_{t}\right)} \delta_{t} \nabla_{w} v\left(s_{t}, w_{t}\right)$
+
+&emsp;&emsp;**Actor (policy update):**
+
+&emsp;&emsp;&emsp;&emsp;$\theta_{t+1}=\theta_{t}+\alpha_{\theta} \frac{\pi\left(a_{t} | s_{t}, \theta_{t}\right)}{\beta\left(a_{t} |s_{t}\right)} \delta_{t} \nabla_{\theta} \ln \pi\left(a_{t} | s_{t}, \theta_{t}\right)$
+
+---
+
+### Deterministic actor-critic (DPG)
+
+#### Deterministic policy gradient
+
+Up to now, the policies used in the policy gradient methods are all stochastic since $\pi(a|s, \theta) > 0$ for every $(s, a)$, and the policy gradient theorems introduced before are **merely valid for stochastic policies**.
+
+If the policy must be deterministic, we must derive a new policy gradient theorem.
+
+Benefit for **deterministic policies** in the policy gradient methods: it can handle continuous action.
+
+The ways to represent a policy:
+
+- Up to now, a general policy is denoted as $\pi(a|s, \theta) \in [0, 1]$, which can be either stochastic or deterministic.
+- Now, the deterministic policy is specifically denoted as$$a = \mu(s, \theta) \triangleq \mu(s)$$where $\mu$ is a mapping from $S$ to $A$, e.g. a neural network with the input as $s$, the output as $a$, and the parameter $\theta$.
+
+Consider the metric of average state value in the discounted case:$$J(\theta)=\mathbb{E}\left[v_{\mu}(s)\right]=\sum_{s \in \mathcal{S}} d_{0}(s) v_{\mu}(s)$$
+where $d_{0}(s)$ is a probability distribution satisfying $\sum_{s \in \mathcal{S}} d_{0}(s)=1$.
+-  $d_{0}$ is selected to be independent of $\mu$. The gradient in this case is easier to calculate.
+- There are two special yet important cases of selecting $d_{0}$.
+  The first special case is that $d_{0}\left(s_{0}\right)=1$ and $d_{0}\left(s \neq s_{0}\right)=0$, where $s_{0}$ is a specific starting state of interest.
+  The second special case is that $d_{0}$ is the stationary distribution of a behavior policy that is different from the $\mu$.
+
+>In the discounted case where $\gamma \in (0, 1)$, the gradient of $J(\theta)$ is$$\begin{aligned}
+\nabla_{\theta} J(\theta) & =\left.\sum_{s \in \mathcal{S}} \rho_{\mu}(s) \nabla_{\theta} \mu(s)\left(\nabla_{a} q_{\mu}(s, a)\right)\right |_{a=\mu(s)} \\
+& =\mathbb{E}_{S \sim \rho_{\mu}}\left[\left.\nabla_{\theta} \mu(S)\left(\nabla_{a} q_{\mu}(S, a)\right)\right|_{a=\mu(S)}\right]
+\end{aligned}$$Here $\rho_\mu$ is a state distribution.
+
+The gradient does not involve the distribution of the action $A$. As a result, the deterministic policy gradient method is **off-policy**.
+
+#### Deterministic actor-critic algorithm
+
+Based on the policy gradient, the gradient-ascent algorithm for maximizing $J(\theta)$  is:$$
+\theta_{t+1}=\theta_{t}+\alpha_{\theta} \mathbb{E}_{S \sim \rho_{\mu}}\left[\left.\nabla_{\theta} \mu(S)\left(\nabla_{a} q_{\mu}(S, a)\right)\right|_{a=\mu(S)}\right]$$The corresponding stochastic gradient-ascent algorithm is$$
+\theta_{t+1}=\theta_{t}+\left.\alpha_{\theta} \nabla_{\theta} \mu\left(s_{t}\right)\left(\nabla_{a} q_{\mu}\left(s_{t}, a\right)\right)\right|_{a=\mu\left(s_{t}\right)}$$
+
+
+---
+
+*Pseudocode:* Deterministic actor-critic algorithm
+
+<b>Initialization:</b> A given behavior policy $\beta(a | s)$. A deterministic target policy $\mu\left(s, \theta_{0}\right)$ where $\theta_{0}$ is the initial parameter vector. A value function $v\left(s, w_{0}\right)$ where $w_{0}$ is the initial parameter vector.
+
+<b>Aim:</b> Search for an optimal policy by maximizing $J(\theta)$.
+
+At time step $t$ in each episode, <b>do</b>
+Generate $a_{t}$ following $\beta$ and then observe $r_{t+1}$, $s_{t+1}$.
+
+&emsp;&emsp;**TD error:**
+
+&emsp;&emsp;&emsp;&emsp;$\delta_{t}=r_{t+1}+\gamma q\left(s_{t+1}, \mu\left(s_{t+1}, \theta_{t}\right), w_{t}\right)-q\left(s_{t}, a_{t}, w_{t}\right)$
+
+
+&emsp;&emsp;**Critic (value update):**
+
+&emsp;&emsp;&emsp;&emsp;$w_{t+1}=w_{t}+\alpha_{w} \delta_{t} \nabla_{w} q\left(s_{t}, a_{t}, w_{t}\right)$
+
+
+&emsp;&emsp;**Actor (policy update):**
+
+&emsp;&emsp;&emsp;&emsp;$\theta_{t+1}=\theta_{t}+\left.\alpha_{\theta} \nabla_{\theta} \mu\left(s_{t}, \theta_{t}\right)\left(\nabla_{a} q\left(s_{t}, a, w_{t+1}\right)\right)\right|_{a=\mu\left(s_{t}\right)}$
+
+---
+
+>Remarks:
+>- This is an off-policy implementation where the behavior policy $\beta$ may be different from $\mu$.
+>- $\beta$ can also be replaced by $\mu+$noise.
+>- How to select the function to represent $q(s, a, w)$?
+>  **Linear function:** $q(s, a, w)=\phi^{T}(s, a) w$ where $\phi(s, a)$ is the feature vector. Details can be found in the DPG paper.
+>  **Neural networks:** deep deterministic policy gradient (DDPG) method.
 
