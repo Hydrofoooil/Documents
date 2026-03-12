@@ -1,0 +1,19 @@
+{
+  "database": "Zotero",
+  "noteImportFolder": "",
+  "pdfExportImageDPI": 120,
+  "pdfExportImageFormat": "jpg",
+  "pdfExportImageQuality": 90,
+  "citeFormats": [
+    {
+      "name": "Insert Zotero Link",
+      "format": "template",
+      "template": "[{{ date | format(\"YY.MM\")}} | {{title}}]({{select}})",
+      "cslStyle": "ieee"
+    }
+  ],
+  "exportFormats": [],
+  "citeSuggestTemplate": "[[{{citekey}}]]",
+  "openNoteAfterImport": false,
+  "whichNotesToOpenAfterImport": "first-imported-note"
+}

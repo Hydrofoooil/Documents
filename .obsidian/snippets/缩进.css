@@ -1,0 +1,5 @@
+/* 强制在阅读模式下保留空白符和 Tab */
+.markdown-preview-view p {
+    white-space: pre-wrap; /* 关键：保留空格和换行，但允许自然换行 */
+    tab-size: 4;           /* 设定一个 Tab 等于 4 个空格的宽度 */
+}

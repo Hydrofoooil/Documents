@@ -1,7 +1,9 @@
 # obsidian 相关
-.obsidian/
+.obsidian/workspace.json
 
-ScaleLab/
+.obsidian/appearance,json
 
 MathFoundationRL/MathFoundationRL.md
+
+
 

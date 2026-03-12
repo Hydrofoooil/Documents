@@ -1,0 +1,30 @@
+{
+  "showTitle": false,
+  "maxLevel": "6",
+  "displayHeader": true,
+  "displayFooter": true,
+  "headerTemplate": "<div style=\"width: 100%; font-size: 15px; text-align: center;\">\n  <span class=\"title\"></span> | <span>cc98 @Hydrofoil</span>\n</div>",
+  "footerTemplate": "<div style=\"width: 100vw;font-size:10px;text-align:center;\"><span class=\"pageNumber\"></span> / <span class=\"totalPages\"></span></div>",
+  "printBackground": false,
+  "generateTaggedPDF": false,
+  "displayMetadata": false,
+  "debug": false,
+  "isTimestamp": false,
+  "enabledCss": false,
+  "concurrency": "5",
+  "prevConfig": {
+    "pageSize": "A4",
+    "marginType": "3",
+    "showTitle": false,
+    "open": true,
+    "scale": 85,
+    "landscape": false,
+    "marginTop": "15",
+    "marginBottom": "10",
+    "marginLeft": "10",
+    "marginRight": "10",
+    "displayHeader": true,
+    "displayFooter": true,
+    "cssSnippet": "0"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "livePreview": true,
+  "rightToLeft": false,
+  "showLineNumber": false,
+  "defaultViewMode": "preview",
+  "readableLineLength": false,
+  "propertiesInDocument": "visible",
+  "alwaysUpdateLinks": true,
+  "pdfExportSettings": {
+    "includeName": true,
+    "pageSize": "A4",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 90
+  }
+}
