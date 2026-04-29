@@ -6,7 +6,7 @@
 
 
 
-- Author: Ting Mao
+- Author: Hydrofoil
 
 - Version: 3.0
 
