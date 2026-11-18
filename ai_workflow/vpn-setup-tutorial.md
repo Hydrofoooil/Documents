@@ -18,7 +18,7 @@
 
   
 
-![VPS 代理架构](vpn-architecture.png)
+![[vpn-architecture.png]]
 
   
 
